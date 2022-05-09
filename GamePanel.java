@@ -31,7 +31,7 @@ public class GamePanel extends JPanel {
          new Timer(delay, update).start();
       }
    
-     // Repaint the canvas and move pacman player based on which key press
+     // Repaint the canvas
       public void paintComponent(Graphics g) {
          super.paintComponent(g); // Calls the parent class' method to repaint
          setBackground(Color.white); // Set the background to white
