@@ -3,43 +3,41 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+// Game logic here
+
 public class GamePanel extends JPanel {
-      // Challenge, how could make sure the player starts in the center of the window every time, even if
-      // screen size changes on startup?
-      private int xCoordinate = 0; // The initial coordinate of the pacman
-      private int yCoordinate = 0; // The starting coordinate of the pacman
+      private Player player = null;
+      //private LevelData levels = new LevelData("levels.scp");
+      //private Level currentLevel = null;
       
-      boolean key_right, key_left, key_down, key_up; // Booleans to track current key press
+      private boolean key_right, key_left, key_down, key_up; // Booleans to track current key press
       
       public GamePanel() {
          this.setFocusable(true); // Events only fire for a component if it has focus, so this call is necessary
-         addKeyListener(new GameInput()); // You are adding a KeyListener TO the GamePanel
+         
+         // Make a player
+         player = new Player(0, 0);
+         
+         // Handle Inputs, see below
+         addKeyListener(new GameInput());
+         
+         // Update function, runs 60 times per second
+         int delay = 1000/60;
+         ActionListener update = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+               player.move(key_down, key_up, key_right, key_left);
+            }
+         };
+         new Timer(delay, update).start();
       }
    
      // Repaint the canvas and move pacman player based on which key press
       public void paintComponent(Graphics g) {
          super.paintComponent(g); // Calls the parent class' method to repaint
          setBackground(Color.white); // Set the background to white
-         g.fillRect(xCoordinate, yCoordinate, 10, 10);
-      
-         // Challenge: How could you modify this logic to load a different image at the time
-         // of a key press?
-         // Challenge: How to make it so that the pacman doesn't go outside the borders?
          
-         // Press DOWN
-         if (key_down) { yCoordinate++; }
-      
-         // Press UP
-         if (key_up) { yCoordinate--; }
-      
-         // Press RIGHT
-         if (key_right) { xCoordinate++; }
-      
-         // Press LEFT
-         if (key_left) { xCoordinate--; }
-      
-         // Add a delay between key presses
-         for (int index = 0; index < 50000000; index++) {}
+         // Draw the player
+         g.fillRect(player.getX(), player.getY(), 10, 10);
       
          repaint();
       }
@@ -48,9 +46,6 @@ public class GamePanel extends JPanel {
       // Called from the GamePanel contructor
          private class GameInput implements KeyListener {
          
-         //Challenge - How can you modify this and other methods so that
-         // that each keypress down truly only moves the pacman a few pixels
-         // until the next key press?
          public void keyTyped(KeyEvent e) {}
       
          public void keyReleased(KeyEvent e) {
