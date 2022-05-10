@@ -10,13 +10,13 @@ public class GamePanel extends JPanel {
       //private LevelData levels = new LevelData("levels.scp");
       //private Level currentLevel = null;
       
-      private boolean key_right, key_left, key_down, key_up, key_space; // Booleans to track current key press
+      private boolean key_right, key_left, key_down, key_up, key_space, key_w, key_a, key_d; // Booleans to track current key press
       
       public GamePanel() {
          this.setFocusable(true); // Events only fire for a component if it has focus, so this call is necessary
          
          // Make a player
-         player = new Player(0, 400);
+         player = new Player(0, 200);
          
          // Handle Inputs, see below
          addKeyListener(new GameInput());
@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
          int delay = 1000/60;
          ActionListener update = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-               player.move(key_up || key_space, key_right, key_left);
+               player.move(key_up || key_space || key_w, key_right || key_d, key_left || key_a);
             }
          };
          new Timer(delay, update).start();
@@ -54,6 +54,9 @@ public class GamePanel extends JPanel {
             if (e.getKeyCode() == e.VK_RIGHT) key_right = false;
             if (e.getKeyCode() == e.VK_LEFT) key_left = false;
             if (e.getKeyCode() == e.VK_SPACE) key_space = false;
+            if (e.getKeyCode() == e.VK_W) key_w = false; 
+            if (e.getKeyCode() == e.VK_A) key_a = false; 
+            if (e.getKeyCode() == e.VK_D) key_d = false; 
             
          }
       
@@ -63,6 +66,9 @@ public class GamePanel extends JPanel {
             if (e.getKeyCode() == e.VK_RIGHT) key_right = true;
             if (e.getKeyCode() == e.VK_LEFT) key_left = true;
             if (e.getKeyCode() == e.VK_SPACE) key_space = true; 
+            if (e.getKeyCode() == e.VK_W) key_w = true; 
+            if (e.getKeyCode() == e.VK_A) key_a = true; 
+            if (e.getKeyCode() == e.VK_D) key_d = true; 
          }
       }
 }
