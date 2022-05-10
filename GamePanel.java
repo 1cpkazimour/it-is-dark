@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
          int delay = 1000/60;
          ActionListener update = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-               player.move(key_down, key_up, key_right, key_left, key_space);
+               player.move(key_up || key_space, key_right, key_left,);
             }
          };
          new Timer(delay, update).start();

@@ -6,8 +6,11 @@ public class Player {
    private int x, y;
    // The player's speed
    private int speed = 6;
-   // The player's vertical velocity
-   private int vert = 0;
+   // The player's vertical (y) velocity
+   private int vy = 0;
+   
+   // Level of the floor
+   private static final int FLOOR_LEVEL = 550;
    
    // Constructor, can specify starting x and y 
    public Player(int x, int y) {
@@ -23,15 +26,14 @@ public class Player {
    // Move based on keys down
    // This method assumes it is being called 60 times per second
    // TODO: add check for LevelElements
-   public void move(boolean key_down, boolean key_up, boolean key_right, boolean key_left, boolean key_space) {
-      if (key_down) { /*y += speed;*/ }
-      if ((key_up || key_space) && y > 550) { vert += 10; } // Checks that player is on bottom
+   public void move(boolean key_jump, boolean key_right, boolean key_left) {
+      if ((key_up || key_space) && y > FLOOR_LEVEL) { vert += 10; } // Checks that player is on bottom
       if (key_right) { x += speed; }
       if (key_left) { x -= speed; }
-      y -= vert;
-      vert--;
-      if (y > 550) {
-         vert = 0;
+      y -= vy;
+      vy--;
+      if (y > FLOOR_LEVEL) {
+         vy = 0;
       }
       
    }
