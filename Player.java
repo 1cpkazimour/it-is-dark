@@ -8,9 +8,12 @@ public class Player {
    private int speed = 6;
    // The player's vertical (y) velocity
    private int vy = 0;
+      
+   // Size of the player
+   public static final int SIZE = 40;
    
    // Level of the floor
-   private static final int FLOOR_LEVEL = 550;
+   private static final int FLOOR_LEVEL = 500 - SIZE;
    // Color of the player (black)
    private static final Color color = new Color(255, 255, 255);
    
@@ -23,7 +26,7 @@ public class Player {
    // Draw function, to draw self
    public void draw(Graphics g) {
       g.setColor(color);
-      g.fillRect(x, y, 10, 10);
+      g.fillRect(x, y, SIZE, SIZE);
    }
    
    // Move based on keys down
