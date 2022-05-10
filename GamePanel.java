@@ -37,8 +37,8 @@ public class GamePanel extends JPanel {
          setBackground(Color.white); // Set the background to white
          
          // Draw the player
-         g.fillRect(player.getX(), player.getY(), 10, 10);
-         
+         player.draw(g);
+                 
          repaint();
       }
       

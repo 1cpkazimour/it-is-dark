@@ -1,3 +1,5 @@
+import java.awt.*;
+
 // This class represents a player object
 public class Player {
    // The x and y positions of the player
@@ -11,9 +13,13 @@ public class Player {
       this.y = y;
    }
    
+   // Draw function, to draw self
+   public void draw(Graphics g) {
+      g.fillRect(x, y, 10, 10);
+   }
+   
    // Move based on keys down
-   // This method assumes it is being called 60 times
-   // per second
+   // This method assumes it is being called 60 times per second
    public void move(boolean key_down, boolean key_up, boolean key_right, boolean key_left) {
       if (key_down) { y += speed; }
       if (key_up) { y -= speed; }
