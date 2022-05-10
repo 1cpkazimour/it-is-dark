@@ -11,6 +11,8 @@ public class Player {
    
    // Level of the floor
    private static final int FLOOR_LEVEL = 550;
+   // Color of the player (black)
+   private static final Color color = new Color(255, 255, 255);
    
    // Constructor, can specify starting x and y 
    public Player(int x, int y) {
@@ -20,6 +22,7 @@ public class Player {
    
    // Draw function, to draw self
    public void draw(Graphics g) {
+      g.setColor(color);
       g.fillRect(x, y, 10, 10);
    }
    
@@ -27,7 +30,7 @@ public class Player {
    // This method assumes it is being called 60 times per second
    // TODO: add check for LevelElements
    public void move(boolean key_jump, boolean key_right, boolean key_left) {
-      if ((key_up || key_space) && y > FLOOR_LEVEL) { vert += 10; } // Checks that player is on bottom
+      if (key_jump && y > FLOOR_LEVEL) { vy += 10; } // Checks that player is on bottom
       if (key_right) { x += speed; }
       if (key_left) { x -= speed; }
       y -= vy;

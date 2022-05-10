@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
          int delay = 1000/60;
          ActionListener update = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-               player.move(key_up || key_space, key_right, key_left,);
+               player.move(key_up || key_space, key_right, key_left);
             }
          };
          new Timer(delay, update).start();
@@ -34,7 +34,7 @@ public class GamePanel extends JPanel {
       // Repaint the canvas
       public void paintComponent(Graphics g) {
          super.paintComponent(g); // Calls the parent class' method to repaint
-         setBackground(Color.white); // Set the background to white
+         setBackground(Color.black); // Set the background to black
          
          // Draw the player
          player.draw(g);
