@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.Serializable;
 
 // This class represents a single level object used to hold the level data for the game
-public class Level implements Serializable{
+public class Level implements Serializable {
    // Staring X and Y coordinates for player
    private int startX;
    private int startY;
@@ -63,4 +63,10 @@ public class Level implements Serializable{
       }
       return output;
    }
+   
+   // Getters for start and end positions
+   public int getStartX() { return startX; }
+   public int getStartY() { return startY; }
+   public int getEndX() { return endX; }
+   public int getEndY() { return endY; }
 }
