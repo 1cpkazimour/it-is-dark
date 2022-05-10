@@ -31,20 +31,20 @@ public class GamePanel extends JPanel {
          new Timer(delay, update).start();
       }
    
-     // Repaint the canvas
+      // Repaint the canvas
       public void paintComponent(Graphics g) {
          super.paintComponent(g); // Calls the parent class' method to repaint
          setBackground(Color.white); // Set the background to white
          
          // Draw the player
          g.fillRect(player.getX(), player.getY(), 10, 10);
-      
+         
          repaint();
       }
       
       // Private class to intantiate a KeyListener object
       // Called from the GamePanel contructor
-         private class GameInput implements KeyListener {
+      private class GameInput implements KeyListener {
          
          public void keyTyped(KeyEvent e) {}
       
