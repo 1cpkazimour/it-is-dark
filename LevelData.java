@@ -30,7 +30,6 @@ public class LevelData {
    }
    
    // Returns level of specified number. First level is 1.
-   // (why???????????)
    public Level get(int id) {
       return levels[id - 1];
    }
