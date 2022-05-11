@@ -24,4 +24,9 @@ public class Collision {
    // Getters
    public Side getSide() {return collisionSide;}
    public Type getType() {return collisionType;}
+   
+   // toString for testing
+   public String toString() {
+      return collisionSide + ", " + collisionType;
+   }
 }

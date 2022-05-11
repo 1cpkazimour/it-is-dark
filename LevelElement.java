@@ -52,4 +52,11 @@ public class LevelElement implements Serializable {
    // Compute properties of the objects
    public int getHeight() { return y2 - y1; }
    public int getWidth() { return x2 - x1; }
+   
+   // Main method for testing
+   public static void main(String[] args) {
+      LevelElement test = new LevelElement(0, 0, 60, 60);
+      System.out.println(test.checkCollisions(53, 10));
+      
+   }
 }
