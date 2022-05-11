@@ -18,8 +18,29 @@ public class LevelElement implements Serializable {
       y2 = ytwo;
    }
    
+   // For testing purposes
    public String toString() {
       return x1 + ", " + y1 + ", " + x2 + ", " + y2;
+   }
+   
+   public Collision checkCollisions(int x, int y){
+      // Check left collision (Right side of player)
+      if (x + Player.SIZE + 1 > x1 && x + Player.SIZE < x2 && y < y2 && y + Player.SIZE > y1) {
+         return new Collision(Collision.Side.RIGHT, Collision.Type.NORMAL);
+      }
+      // Check right collision (Left side of player)
+      if (x < x2 && x > x1 && y < y2 && y + Player.SIZE > y1) {
+         return new Collision(Collision.Side.LEFT, Collision.Type.NORMAL);
+      }
+      // Check top collision (Bottom of player)
+      if (y + Player.SIZE + 1 > y1 && y + Player.SIZE < y2 && x < x2 && x + Player.SIZE > y1) {
+         return new Collision(Collision.Side.BOTTOM, Collision.Type.NORMAL);
+      }
+      // Check boyyom collision (Top of player)
+      if (y < y2 && y > y1 && x < x2 && x + Player.SIZE > y1) {
+         return new Collision(Collision.Side.TOP, Collision.Type.NORMAL);
+      }
+      return null;
    }
    
    // Getters
