@@ -32,13 +32,27 @@ public class Player {
    // Move based on keys down
    // This method assumes it is being called 60 times per second
    // TODO: add check for LevelElements
-   public void move(boolean key_jump, boolean key_right, boolean key_left) {
-      if (key_jump && y > FLOOR_LEVEL) { vy += 10; } // Checks that player is on bottom
-      if (key_right) { x += speed; }
-      if (key_left) { x -= speed; }
+   public void move(boolean key_jump, boolean key_right, boolean key_left, Level level) {
+      boolean col_left = false;
+      boolean col_right = false;
+      boolean col_top = false;
+      boolean col_bottom = false;
+      Collision[] collisions = level.checkAllCollisions(x, y);
+      for (Collision c : collisions) {
+            if (c != null){
+            if (c.getSide() == Collision.Side.TOP) {col_top = true;}
+            if (c.getSide() == Collision.Side.BOTTOM) {col_bottom = true;}
+            if (c.getSide() == Collision.Side.LEFT) {col_left = true;}
+            if (c.getSide() == Collision.Side.RIGHT) {col_right = true;}
+            System.out.println(c);
+         }
+      }
+      if (key_jump && (y > FLOOR_LEVEL || col_bottom) && !col_top) { vy += 10; } // Checks that player is on bottom
+      if (key_right && !col_right) { x += speed; }
+      if (key_left && !col_left) { x -= speed; }
       y -= vy;
       vy--;
-      if (y > FLOOR_LEVEL) {
+      if (y > FLOOR_LEVEL || col_bottom) {
          vy = 0;
       }
       
