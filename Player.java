@@ -39,13 +39,14 @@ public class Player {
       boolean col_bottom = false;
       Collision[] collisions = level.checkAllCollisions(x, y);
       for (Collision c : collisions) {
-            if (c != null){
-            if (c.getSide() == Collision.Side.TOP) {col_top = true;}
-            if (c.getSide() == Collision.Side.BOTTOM) {col_bottom = true;}
-            if (c.getSide() == Collision.Side.LEFT) {col_left = true;}
-            if (c.getSide() == Collision.Side.RIGHT) {col_right = true;}
-            System.out.println(c);
+         if (c != null){
+             if (c.getSide() == Collision.Side.TOP) {col_top = true; y = c.getLine();}
+             if (c.getSide() == Collision.Side.BOTTOM) {col_bottom = true; y = c.getLine() - Player.SIZE;}
+             if (c.getSide() == Collision.Side.LEFT) {col_left = true; x = c.getLine();}
+             if (c.getSide() == Collision.Side.RIGHT) {col_right = true; x = c.getLine() - Player.SIZE;}
+               
          }
+         System.out.println(c);
       }
       if (key_jump && (y > FLOOR_LEVEL || col_bottom) && !col_top) { vy += 10; } // Checks that player is on bottom
       if (key_right && !col_right) { x += speed; }
