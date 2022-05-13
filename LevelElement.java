@@ -58,5 +58,5 @@ public class LevelElement implements Serializable {
 //       LevelElement test = new LevelElement(0, 0, 60, 60);
 //       System.out.println(test.checkCollisions(53, 10));
 //       
-   }
+//   }
 }
