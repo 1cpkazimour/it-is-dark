@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.Serializable;
+import java.awt.*;
 
 // This class represents a single level object used to hold the level data for the game
 public class Level implements Serializable {
@@ -63,6 +64,13 @@ public class Level implements Serializable {
          }
       }
       return collisions;
+   }
+   
+   // Draws lines on the faces of LevelElements that the player has collided with
+   public void paint(Graphics g) {
+      for (LevelElement e : elements) {
+         e.drawFaces(g);
+      }
    }
    
    // Prints the information about the level and each LevelElement. Used for testing purposes

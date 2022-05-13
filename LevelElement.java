@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.awt.*;
 
 // Represents a single element in a level. Maybe should be made an interface?
 public class LevelElement implements Serializable {
@@ -11,6 +12,12 @@ public class LevelElement implements Serializable {
    private int x2;
    private int y2;
    
+   // Whether each face has been collided with or not
+   private boolean lit_top;
+   private boolean lit_bottom;
+   private boolean lit_left;
+   private boolean lit_right;
+   
    public LevelElement(int xone, int yone, int xtwo, int ytwo) {
       x1 = xone;
       y1 = yone;
@@ -21,6 +28,13 @@ public class LevelElement implements Serializable {
    // For testing purposes
    public String toString() {
       return x1 + ", " + y1 + ", " + x2 + ", " + y2;
+   }
+   
+   public void drawFaces(Graphics g) {
+      if (lit_top) {g.drawLine(x1,y1,x2,y1);}
+      if (lit_bottom) {g.drawLine(x1,y2,x2,y2);}
+      if (lit_left) {g.drawLine(x1,y1,x1,y2);}
+      if (lit_right) {g.drawLine(x2,y1,x2,y2);}
    }
    
    public Collision checkCollisions(int x, int y){
