@@ -18,6 +18,8 @@ public class Player {
    // Color of the player (black)
    private static final Color color = new Color(255, 255, 255);
    
+   private boolean didCollide = false;
+   
    // Constructor, can specify starting x and y 
    public Player(int x, int y) {
       this.x = x;
@@ -34,8 +36,8 @@ public class Player {
    // Move based on keys down
    // This method assumes it is being called 60 times per second
    // TODO: add check for LevelElements
-   public void move(boolean key_jump, boolean key_right, boolean key_left, Level level) {      
-      if (key_jump && y > FLOOR_LEVEL) { vy += 15; } // Checks that player is on floor
+   public void move(boolean key_jump, boolean key_right, boolean key_left, Level level) {
+      if (key_jump && (y > FLOOR_LEVEL || didCollide)) { vy += 15; } // Checks that player is on floor
       if (key_right) { x += speed; }
       if (key_left) { x -= speed; }
       y -= vy;
@@ -45,14 +47,19 @@ public class Player {
          vy = 0;
       }
       
+      didCollide = false;
+      
       Collision collision = level.checkCollisions(x, y);
       while (collision != null) {
          x = collision.getNewX(x);
          y = collision.getNewY(y);
          vy = 0;
+         didCollide = true;
          
          collision = level.checkCollisions(x, y);
       }
+      
+      
    }
    
    // getters for position
