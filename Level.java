@@ -55,6 +55,16 @@ public class Level implements Serializable {
       return elements.size();
    }
    
+   public ArrayList<Collision> checkAllCollisions(int x, int y) {
+      ArrayList<Collision> collisions = new ArrayList<Collision>();
+      for(LevelElement element : elements) {
+         if(element.checkCollisions(x, y) != null){
+            collisions.add(element.checkCollisions(x,y));
+         }
+      }
+      return collisions;
+   }
+   
    // Prints the information about the level and each LevelElement. Used for testing purposes
    public String toString() {
       String output = "Start: (" + startX  + ", " + startY + ") / " + "End: (" + endX  + ", " + endY + ")\n" ;

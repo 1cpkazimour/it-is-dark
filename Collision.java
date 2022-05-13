@@ -15,15 +15,18 @@ public class Collision {
    // Properties of collision
    private Type collisionType;
    private Side collisionSide;
+   private int line;
    
-   public Collision(Side side, Type type) {
+   public Collision(Side side, Type type, int l) {
       collisionSide = side;
       collisionType = type;
+      line = l;
    }
    
    // Getters
    public Side getSide() {return collisionSide;}
    public Type getType() {return collisionType;}
+   public int getLine() {return line;}
    
    // toString for testing
    public String toString() {
