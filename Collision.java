@@ -27,6 +27,6 @@ public class Collision {
    
    // toString for testing
    public String toString() {
-      return collisionSide + ", " + collisionType;
+      return "Side: " + collisionSide + ", Type: " + collisionType;
    }
 }
