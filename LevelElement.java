@@ -24,11 +24,7 @@ public class LevelElement implements Serializable {
    }
    
    public Collision checkCollisions(int x, int y){
-      // Check top collision (Bottom of player)
-      if (y + Player.SIZE + 1 >= y1 && y <= y1 && x <= x2 && x + Player.SIZE >= x1) {
-         return new Collision(Collision.Side.BOTTOM, Collision.Type.NORMAL, y1);
-      }
-      // Check left collision (Right side of player)
+       // Check left collision (Right side of player)
       if (x + Player.SIZE + 1 >= x1 && x <= x1 && y <= y2 && y + Player.SIZE >= y1) {
          return new Collision(Collision.Side.RIGHT, Collision.Type.NORMAL, x1);
       }
@@ -39,6 +35,10 @@ public class LevelElement implements Serializable {
       // Check bottom collision (Top of player)
       if (y - 1 <= y2 && y + Player.SIZE >= y2 && x <= x2 && x + Player.SIZE >= y1) {
          return new Collision(Collision.Side.TOP, Collision.Type.NORMAL, y2);
+      }
+      // Check top collision (Bottom of player)
+      if (y + Player.SIZE + 1 >= y1 && y <= y1 && x <= x2 && x + Player.SIZE >= x1) {
+         return new Collision(Collision.Side.BOTTOM, Collision.Type.NORMAL, y1);
       }
       return null;
    }

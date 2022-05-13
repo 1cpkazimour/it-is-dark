@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.*;
 
 // This class represents a player object
 public class Player {
@@ -37,7 +38,8 @@ public class Player {
       boolean col_right = false;
       boolean col_top = false;
       boolean col_bottom = false;
-      Collision[] collisions = level.checkAllCollisions(x, y);
+      ArrayList<Collision> collisions = level.checkAllCollisions(x, y);
+      // Read all collision data and snap player to surface
       for (Collision c : collisions) {
          if (c != null){
              if (c.getSide() == Collision.Side.TOP) {col_top = true; y = c.getLine();}
@@ -48,12 +50,13 @@ public class Player {
          }
          System.out.println(c);
       }
-      if (key_jump && (y > FLOOR_LEVEL || col_bottom) && !col_top) { vy += 10; } // Checks that player is on bottom
+      if (key_jump && (y > FLOOR_LEVEL || col_bottom) && !col_top) { vy += 10; } // Checks that player is on floor
       if (key_right && !col_right) { x += speed; }
       if (key_left && !col_left) { x -= speed; }
       y -= vy;
       vy--;
-      if (y > FLOOR_LEVEL || col_bottom) {
+      // Set vertical velocity to zero upon vertial collision
+      if (y > FLOOR_LEVEL || col_bottom || col_top) {
          vy = 0;
       }
       

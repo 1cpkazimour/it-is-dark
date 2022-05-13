@@ -55,13 +55,11 @@ public class Level implements Serializable {
       return elements.size();
    }
    
-   public Collision[] checkAllCollisions(int x, int y) {
-      Collision[] collisions = new Collision[4];
-      int counter = 0;
+   public ArrayList<Collision> checkAllCollisions(int x, int y) {
+      ArrayList<Collision> collisions = new ArrayList<Collision>();
       for(LevelElement element : elements) {
          if(element.checkCollisions(x, y) != null){
-            collisions[counter] = element.checkCollisions(x, y);
-            counter++;
+            collisions.add(element.checkCollisions(x,y));
          }
       }
       return collisions;
