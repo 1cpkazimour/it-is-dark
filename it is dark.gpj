@@ -1,5 +1,5 @@
 !1513;s
-J
+A
 SAU0JGRASP_MAIN_BOUNDS=%<CONTROL_SHELL_BOUNDS>\012PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning\012GCC_COLORS=\012-Run\012ADD_EXE_PATH==Y\012
 SCU0JGRASP_MAIN_BOUNDS=%<CONTROL_SHELL_BOUNDS>\012PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning\012GCC_COLORS=\012-Run\012ADD_EXE_PATH==Y\012
 S+U0JGRASP_MAIN_BOUNDS=%<CONTROL_SHELL_BOUNDS>\012PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning\012GCC_COLORS=\012-Run\012ADD_EXE_PATH==Y\012
@@ -12,18 +12,19 @@ s#i0
 s#k0
 s#j0
 s#l0
-!141;u
-a0	b68	c255	d%\\011levels.ser	e%\\011levels.ser	f%\011it is dark.jar	g%\011it is dark.zip	hManifest-Version\0111.0\011Main-Class\011LevelData!111;g
-%\011LevelElement.java
-%\011Main.java
-%\011Player.java
+!131;g
 %\011Level.java
-%\011LevelData.java
+%\011Collision.java
 %\011GamePanel.java
-!111;f
-%\011LevelElement.java
-%\011Main.java
 %\011Player.java
-%\011Level.java
+%\011Main.java
 %\011LevelData.java
+%\011LevelElement.java
+!131;f
+%\011Level.java
+%\011Collision.java
 %\011GamePanel.java
+%\011Player.java
+%\011Main.java
+%\011LevelData.java
+%\011LevelElement.java

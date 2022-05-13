@@ -10,6 +10,9 @@ public class GamePanel extends JPanel {
       //private LevelData levels = new LevelData("levels.scp");
       //private Level currentLevel = null;
       
+      // Represents whether the game is in the menus or not
+      private boolean isGaming = false;
+      
       private boolean key_right, key_left, key_down, key_up, key_space, key_w, key_a, key_d; // Booleans to track current key press
       
       public GamePanel() {
@@ -25,21 +28,39 @@ public class GamePanel extends JPanel {
          int delay = 1000/60;
          ActionListener update = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-               Level level = new Level(-1, -1, -1, -1, new LevelElement[]{new LevelElement(100,440,200,450)});
-               player.move(key_up || key_space || key_w, key_right || key_d, key_left || key_a, level);
+               if (isGaming) update();
             }
          };
          new Timer(delay, update).start();
+      }
+      
+      private void update() {
+         Level level = new Level(-1, -1, -1, -1, new LevelElement[]{new LevelElement(100,440,200,450)});
+         player.move(key_up || key_space || key_w, key_right || key_d, key_left || key_a, level);
       }
    
       // Repaint the canvas
       public void paintComponent(Graphics g) {
          super.paintComponent(g); // Calls the parent class' method to repaint
-         setBackground(Color.black); // Set the background to black
          
-         // Draw the player
-         player.draw(g);
-                 
+         if (isGaming) {
+            setBackground(Color.black); // Set the background to black
+            
+            // Draw the player
+            player.draw(g);
+         } else {
+            setBackground(Color.white);
+            
+            g.setColor(Color.black);
+            g.drawString("it is dark.", 100, 100);
+            g.drawString("press space.", 100, 200);
+            
+            if (key_space) {
+               isGaming = true;
+            }
+         }
+         
+         
          repaint();
       }
       

@@ -50,9 +50,9 @@ public class LevelData {
          }
    }
    
-   public static void main(String[] args) {
-      LevelData test = new LevelData("levels.ser");
-      System.out.println(test.get(1));
-      
-   }
+//    public static void main(String[] args) {
+//       LevelData test = new LevelData("levels.ser");
+//       System.out.println(test.get(1));
+//       
+//    }
 }
