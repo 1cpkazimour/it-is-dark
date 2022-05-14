@@ -38,23 +38,50 @@ public class LevelElement implements Serializable {
    }
    
    public Collision checkCollisions(int x, int y){
-       // Check left collision (Right side of player)
-      if (x + Player.SIZE + 1 >= x1 && x <= x1 && y <= y2 && y + Player.SIZE >= y1) {
-         return new Collision(Collision.Side.RIGHT, Collision.Type.NORMAL, x1);
+      int size = Player.SIZE;
+      
+      // Gap between the left edge of the player and the right edge of the wall
+      int left_gap = x - x2;
+      // Gap between the right edge of the player and the left edge of the wall
+      int right_gap = x1 - (x + size);
+      // Gap between the top edge of the player and the bottom edge of the wall
+      int top_gap = y - y2;
+      // Gap between the bottom edge of the player and the top edge of the wall
+      int bottom_gap = y1 - (y + size);      
+      // gap is positive if you aren't colliding, negative if you are
+      
+      // This boolean represents if the player is within the horizontal realm of the
+      // box. If it is in the vertical realm as well, it is colliding
+      boolean horiz_realm = top_gap < 0 && bottom_gap < 0;
+      
+      // This boolean represents if the player is within the vertical realm of the
+      // box. If it is in the horizontal realm as well, it is colliding
+      boolean vert_realm = left_gap < 0 && right_gap < 0;
+      
+      if (!vert_realm || !horiz_realm) return null; // Not colliding
+      // at this point, we know all gaps are less than zero
+      // so the greatest gap is the one that is closest to zero, and therefore
+      // the one we want to collide with
+      
+      // Left gap is the smallest
+      if (left_gap > right_gap && left_gap > top_gap && left_gap > bottom_gap) {
+         System.out.println("L" + left_gap);
+         return new Collision(Collision.Side.LEFT, Collision.Type.NORMAL, x2, -left_gap);
       }
-      // Check right collision (Left side of player)
-      if (x - 1 <= x2 && x + Player.SIZE >= x2 && y <= y2 && y + Player.SIZE >= y1) {
-         return new Collision(Collision.Side.LEFT, Collision.Type.NORMAL, x2);
+      
+      // We don't need to check the left gap anymore
+      if (right_gap > top_gap && right_gap > bottom_gap) {
+         System.out.println("R" + right_gap);
+         return new Collision(Collision.Side.RIGHT, Collision.Type.NORMAL, x1 - size, -right_gap);
       }
-      // Check bottom collision (Top of player)
-      if (y - 1 <= y2 && y + Player.SIZE >= y2 && x <= x2 && x + Player.SIZE >= y1) {
-         return new Collision(Collision.Side.TOP, Collision.Type.NORMAL, y2);
+      
+      // We don't need to check for the right gap anymore
+      if (top_gap > bottom_gap) {
+         return new Collision(Collision.Side.TOP, Collision.Type.NORMAL, y2, -top_gap);
       }
-      // Check top collision (Bottom of player)
-      if (y + Player.SIZE + 1 >= y1 && y <= y1 && x <= x2 && x + Player.SIZE >= x1) {
-         return new Collision(Collision.Side.BOTTOM, Collision.Type.NORMAL, y1);
-      }
-      return null;
+      
+      // We don't need to check for anything, we know it's bottom
+      return new Collision(Collision.Side.BOTTOM, Collision.Type.NORMAL, y1 - size, -bottom_gap);
    }
    
    // Getters
@@ -70,7 +97,9 @@ public class LevelElement implements Serializable {
    // Main method for testing
 //    public static void main(String[] args) {
 //       LevelElement test = new LevelElement(0, 0, 60, 60);
-//       System.out.println(test.checkCollisions(53, 10));
-//       
-//   }
+//       Collision c = test.checkCollisions(53, 10);
+//       System.out.println(c);
+//       System.out.println(c.getNewX(53));
+//       System.out.println(c.getNewY(10));  
+//    }
 }

@@ -56,14 +56,19 @@ public class Level implements Serializable {
       return elements.size();
    }
    
-   public ArrayList<Collision> checkAllCollisions(int x, int y) {
-      ArrayList<Collision> collisions = new ArrayList<Collision>();
+   public Collision checkCollisions(int x, int y) {
+      Collision bestCollision = null;
+      int bestDegree = Integer.MAX_VALUE;
+      
       for(LevelElement element : elements) {
-         if(element.checkCollisions(x, y) != null){
-            collisions.add(element.checkCollisions(x,y));
+         Collision c = element.checkCollisions(x, y);
+         if(c != null && c.getDegree() < bestDegree) {
+            bestCollision = c;
+            bestDegree = c.getDegree();
          }
       }
-      return collisions;
+      
+      return bestCollision;
    }
    
    // Draws lines on the faces of LevelElements that the player has collided with
