@@ -66,21 +66,25 @@ public class LevelElement implements Serializable {
       // Left gap is the smallest
       if (left_gap > right_gap && left_gap > top_gap && left_gap > bottom_gap) {
          System.out.println("L" + left_gap);
+         lit_right = true;
          return new Collision(Collision.Side.LEFT, Collision.Type.NORMAL, x2, -left_gap);
       }
       
       // We don't need to check the left gap anymore
       if (right_gap > top_gap && right_gap > bottom_gap) {
          System.out.println("R" + right_gap);
+         lit_left = true;
          return new Collision(Collision.Side.RIGHT, Collision.Type.NORMAL, x1 - size, -right_gap);
       }
       
       // We don't need to check for the right gap anymore
       if (top_gap > bottom_gap) {
+         lit_bottom = true;
          return new Collision(Collision.Side.TOP, Collision.Type.NORMAL, y2, -top_gap);
       }
       
       // We don't need to check for anything, we know it's bottom
+      lit_top = true;
       return new Collision(Collision.Side.BOTTOM, Collision.Type.NORMAL, y1 - size, -bottom_gap);
    }
    

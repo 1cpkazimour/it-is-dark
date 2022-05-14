@@ -29,8 +29,7 @@ public class Player {
    // Draw function, to draw self
    public void draw(Graphics g) {
       g.setColor(color);
-      g.fillRect(x, y, SIZE, SIZE);
-      g.fillRect(100, 440, 100, 10); 
+      g.fillRect(x, y, SIZE, SIZE); 
    }
    
    // Move based on keys down

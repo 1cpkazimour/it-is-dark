@@ -9,6 +9,7 @@ public class GamePanel extends JPanel {
       private Player player = null;
       //private LevelData levels = new LevelData("levels.scp");
       //private Level currentLevel = null;
+      private Level level = new Level(-1, -1, -1, -1, new LevelElement[]{new LevelElement(100,440,200,450)});
       
       // Represents whether the game is in the menus or not
       private boolean isGaming = false;
@@ -35,7 +36,6 @@ public class GamePanel extends JPanel {
       }
       
       private void update() {
-         Level level = new Level(-1, -1, -1, -1, new LevelElement[]{new LevelElement(100,440,200,450)});
          player.move(key_up || key_space || key_w, key_right || key_d, key_left || key_a, level);
       }
    
@@ -47,7 +47,9 @@ public class GamePanel extends JPanel {
             setBackground(Color.black); // Set the background to black
             
             // Draw the player
+            level.paint(g);
             player.draw(g);
+            
          } else {
             setBackground(Color.white);
             
