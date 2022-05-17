@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Spike extends LevelElement {
 
    public Spike(int xone, int xtwo, int yone, int ytwo)  {
@@ -10,6 +12,11 @@ public class Spike extends LevelElement {
          return null;
       }
       return new Collision(collision.getSide(), Collision.Type.DEADLY, collision.getLine(), collision.getDegree());
+   }
+   
+   public void drawFaces(Graphics g) {
+      super.setColor(new Color(255, 0, 0));
+      super.drawFaces(g);
    }
    
 }
