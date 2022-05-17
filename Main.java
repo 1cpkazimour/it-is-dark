@@ -8,7 +8,8 @@ public class Main extends JFrame {
       // Setup self as window
       this.setTitle("it is dark.");
       this.setDefaultCloseOperation(EXIT_ON_CLOSE); // Good window hygene
-      this.setSize(new Dimension(600, 600)); // Challenge: How could you make the window take up the size of the screen?
+      this.setSize(new Dimension(1280, 720));
+      this.setResizable(false);
       this.setLocationRelativeTo(null);
       this.getContentPane().setLayout(new BorderLayout());
       this.getContentPane().add(new GamePanel()); // GamePanel holds game logic
