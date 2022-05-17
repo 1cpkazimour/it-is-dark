@@ -16,7 +16,7 @@ public class Player {
    // Level of the floor
    private static final int FLOOR_LEVEL = 500 - SIZE;
    // Color of the player (black)
-   private static final Color color = new Color(255, 255, 255);
+   private Color color = new Color(255, 255, 255);
    
    private boolean didCollide = false;
    
@@ -50,6 +50,14 @@ public class Player {
       
       Collision collision = level.checkCollisions(x, y);
       while (collision != null) {
+         if (collision.getType() == Collision.Type.DEADLY) {
+            color = new Color(255, 0, 0);
+            x = level.getStartX();
+            y = level.getStartY();
+            vy = 0;
+            color = new Color(255, 255, 255);
+            break;
+         }
          x = collision.getNewX(x);
          y = collision.getNewY(y);
          vy = 0;
