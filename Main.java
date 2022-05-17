@@ -4,6 +4,9 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Main extends JFrame {
+   // Go into edit mode?
+   public static final boolean editMode = true;
+
    public Main() {
       // Setup self as window
       this.setTitle("it is dark.");
@@ -12,7 +15,11 @@ public class Main extends JFrame {
       this.setResizable(false);
       this.setLocationRelativeTo(null);
       this.getContentPane().setLayout(new BorderLayout());
-      this.getContentPane().add(new GamePanel()); // GamePanel holds game logic
+      if (editMode) {
+         this.getContentPane().add(new LevelDesignerPanel());
+      } else {
+         this.getContentPane().add(new GamePanel()); // GamePanel holds game logic      
+      }
       this.setVisible(true);
    }
 
