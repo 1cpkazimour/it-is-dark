@@ -24,6 +24,9 @@ public class LevelDesignerPanel extends JPanel {
    private int fy = -1;
    
    private ArrayList<LevelElement> levelElements;
+   
+   private boolean reuseX = false;
+   private boolean reuseY = false;
 
    public LevelDesignerPanel() {
       this.setFocusable(true);
@@ -41,7 +44,9 @@ public class LevelDesignerPanel extends JPanel {
       setBackground(new Color(127, 32, 127));
       
       g.setColor(Color.white);
-      g.drawString("Mode: " + mode + "; Z undo rectangle; F change flag pos; P change player pos", 0, 10);
+      g.drawString("Z undo rectangle; F change flag pos; P change player pos; X reuse x of last point; Y reuse y of last point", 0, 10);
+      if (reuseX) g.drawString("X", 0, 20);
+      if (reuseY) g.drawString("Y", 8, 20);
       
       if (mode == 1) {
          g.setColor(Color.white);
@@ -61,7 +66,7 @@ public class LevelDesignerPanel extends JPanel {
       
       for (LevelElement elm : levelElements) {
          g.setColor(Color.white);
-         g.fillRect(elm.getX1(), elm.getY1(), elm.getWidth(), elm.getHeight());
+         g.drawRect(elm.getX1(), elm.getY1(), elm.getWidth(), elm.getHeight());
       }
    
       repaint();
@@ -70,8 +75,18 @@ public class LevelDesignerPanel extends JPanel {
    private class MouseInput implements MouseListener {
       public void mouseClicked(MouseEvent e) {
          if (mode == 0) {
-            mx = e.getX();
-            my = e.getY();
+            if (reuseX) {
+               reuseX = false;
+            } else {
+               mx = e.getX();
+            }
+            
+            if (reuseY) {
+               reuseY = false;
+            } else {
+               my = e.getY();
+            }
+            
             mode = 1;
          } else if (mode == 1) {
             levelElements.add(new LevelElement(
@@ -102,6 +117,8 @@ public class LevelDesignerPanel extends JPanel {
          if (c == e.VK_Z) levelElements.remove(levelElements.size() - 1);
          if (c == e.VK_P) mode = 2;
          if (c == e.VK_F) mode = 3;
+         if (c == e.VK_X) reuseX = !reuseX;
+         if (c == e.VK_Y) reuseY = !reuseY;
       }
       public void keyPressed(KeyEvent e) {}
    }
