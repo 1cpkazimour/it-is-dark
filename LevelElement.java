@@ -17,6 +17,9 @@ public class LevelElement implements Serializable {
    private boolean lit_bottom;
    private boolean lit_left;
    private boolean lit_right;
+
+   //Color of faces
+   private Color color = new Color(255, 255, 255);
    
    public LevelElement(int xa, int ya, int xb, int yb) {
       x1 = Math.min(xa, xb);
@@ -31,10 +34,22 @@ public class LevelElement implements Serializable {
    }
    
    public void drawFaces(Graphics g) {
-      if (lit_top) {g.drawLine(x1,y1,x2,y1);}
-      if (lit_bottom) {g.drawLine(x1,y2,x2,y2);}
-      if (lit_left) {g.drawLine(x1,y1,x1,y2);}
-      if (lit_right) {g.drawLine(x2,y1,x2,y2);}
+      if (lit_top) {
+         g.setColor(color);
+         g.drawLine(x1,y1,x2,y1);
+      }
+      if (lit_bottom) {
+         g.setColor(color);
+         g.drawLine(x1,y2,x2,y2);
+      }
+      if (lit_left) {
+         g.setColor(color);
+         g.drawLine(x1,y1,x1,y2);
+      }
+      if (lit_right) {
+         g.setColor(color);
+         g.drawLine(x2,y1,x2,y2);
+      }
    }
    
    public Collision checkCollisions(int x, int y){
@@ -84,6 +99,11 @@ public class LevelElement implements Serializable {
       // We don't need to check for anything, we know it's bottom
       lit_top = true;
       return new Collision(Collision.Side.BOTTOM, Collision.Type.NORMAL, y1 - size, -bottom_gap);
+   }
+   
+   // Change face color
+   public void setColor(Color color) {
+      this.color = color;
    }
    
    // Getters
