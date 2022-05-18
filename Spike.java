@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Spike extends LevelElement {
 
-   public Spike(int xone, int xtwo, int yone, int ytwo)  {
+   public Spike(int xone, int xtwo, int yone, int ytwo) {
       super(xone, xtwo, yone, ytwo);
    }
    
