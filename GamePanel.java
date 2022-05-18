@@ -14,7 +14,7 @@ public class GamePanel extends JPanel {
       // Represents whether the game is in the menus or not
       private boolean isGaming = false;
       
-      private boolean key_right, key_left, key_down, key_up, key_space, key_w, key_a, key_d; // Booleans to track current key press
+      private boolean key_right, key_left, key_up, key_space, key_w, key_a, key_d; // Booleans to track current key press
       
       public GamePanel() {
          this.setFocusable(true); // Events only fire for a component if it has focus, so this call is necessary
@@ -73,7 +73,6 @@ public class GamePanel extends JPanel {
          public void keyTyped(KeyEvent e) {}
       
          public void keyReleased(KeyEvent e) {
-            if (e.getKeyCode() == e.VK_DOWN) key_down = false;
             if (e.getKeyCode() == e.VK_UP) key_up = false;
             if (e.getKeyCode() == e.VK_RIGHT) key_right = false;
             if (e.getKeyCode() == e.VK_LEFT) key_left = false;
@@ -85,7 +84,6 @@ public class GamePanel extends JPanel {
          }
       
          public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == e.VK_DOWN) key_down = true;
             if (e.getKeyCode() == e.VK_UP) key_up = true;
             if (e.getKeyCode() == e.VK_RIGHT) key_right = true;
             if (e.getKeyCode() == e.VK_LEFT) key_left = true;
