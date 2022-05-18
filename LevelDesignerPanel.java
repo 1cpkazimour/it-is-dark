@@ -15,12 +15,21 @@ public class LevelDesignerPanel extends JPanel {
    private int mx = -1;
    private int my = -1;
    
+   // Location of start
+   private int sx = -1;
+   private int sy = -1;
+   
+   // Location of flag
+   private int fx = -1;
+   private int fy = -1;
+   
    private ArrayList<LevelElement> levelElements;
 
    public LevelDesignerPanel() {
       this.setFocusable(true);
       
       addMouseListener(new MouseInput());
+      addKeyListener(new KeyboardInput());
       
       levelElements = new ArrayList<LevelElement>();
    }
@@ -40,7 +49,18 @@ public class LevelDesignerPanel extends JPanel {
          g.drawString(mx + "," + my, mx, my);
       }
       
+      if (sx != -1) {
+         g.setColor(Color.green);
+         g.fillRect(sx, sy, Player.SIZE, Player.SIZE);
+      }
+      
+      if (fx != -1) {
+         g.setColor(Color.red);
+         g.fillRect(fx, fy, 10, 10);
+      }
+      
       for (LevelElement elm : levelElements) {
+         g.setColor(Color.white);
          g.fillRect(elm.getX1(), elm.getY1(), elm.getWidth(), elm.getHeight());
       }
    
@@ -49,7 +69,6 @@ public class LevelDesignerPanel extends JPanel {
    
    private class MouseInput implements MouseListener {
       public void mouseClicked(MouseEvent e) {
-         System.out.println("Got here");
          if (mode == 0) {
             mx = e.getX();
             my = e.getY();
@@ -58,6 +77,14 @@ public class LevelDesignerPanel extends JPanel {
             levelElements.add(new LevelElement(
                mx, my, e.getX(), e.getY()
             ));
+            mode = 0;
+         } else if (mode == 2) {
+            sx = e.getX();
+            sy = e.getY();
+            mode = 0;
+         } else if (mode == 3) {
+            fx = e.getX();
+            fy = e.getY();
             mode = 0;
          }
       }
@@ -68,4 +95,14 @@ public class LevelDesignerPanel extends JPanel {
       public void mouseReleased(MouseEvent e) {}
    }
 
+   private class KeyboardInput implements KeyListener {
+      public void keyTyped(KeyEvent e) {}
+      public void keyReleased(KeyEvent e) {
+         int c = e.getKeyCode();
+         if (c == e.VK_Z) levelElements.remove(levelElements.size() - 1);
+         if (c == e.VK_P) mode = 2;
+         if (c == e.VK_F) mode = 3;
+      }
+      public void keyPressed(KeyEvent e) {}
+   }
 }
