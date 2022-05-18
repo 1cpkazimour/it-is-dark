@@ -4,10 +4,11 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Main extends JFrame {
-   public Main() {
+   public Main(ScreenSize s) {
       // Setup self as window
       this.setTitle("it is dark.");
       this.setDefaultCloseOperation(EXIT_ON_CLOSE); // Good window hygene
+      //this.setSize(new Dimension(s.getWidth(), s.getHeight()));
       this.setSize(new Dimension(1280, 720));
       this.setResizable(false);
       this.setLocationRelativeTo(null);
@@ -17,7 +18,8 @@ public class Main extends JFrame {
    }
 
    public static void main(String[] args) {
-      new Main();
+      ScreenSize s = new ScreenSize();
+      new Main(s);
    }
-   
+
 }
