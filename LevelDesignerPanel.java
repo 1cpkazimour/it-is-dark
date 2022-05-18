@@ -11,6 +11,9 @@ public class LevelDesignerPanel extends JPanel {
    // 3 = End pos
    private int mode = 0;
    
+   // Is in mark mode? 
+   private boolean markMode = false;
+   
    // Location of mouse point, if it exists.
    private int mx = -1;
    private int my = -1;
@@ -25,6 +28,9 @@ public class LevelDesignerPanel extends JPanel {
    
    private ArrayList<LevelElement> levelElements;
    
+   // Mark System
+   private int markX = -1;
+   private int markY = -1;
    private boolean reuseX = false;
    private boolean reuseY = false;
 
@@ -44,9 +50,15 @@ public class LevelDesignerPanel extends JPanel {
       setBackground(new Color(127, 32, 127));
       
       g.setColor(Color.white);
-      g.drawString("Z undo rectangle; F change flag pos; P change player pos; X reuse x of last point; Y reuse y of last point", 0, 10);
-      if (reuseX) g.drawString("X", 0, 20);
-      if (reuseY) g.drawString("Y", 8, 20);
+      g.drawString("Z undo rectangle; F change flag pos; P change player pos; M set mark; X reuse x of mark; Y reuse y of mark", 0, 10);
+      if (reuseX) g.drawString("X", 0, 30);
+      if (reuseY) g.drawString("Y", 8, 30);
+      if (markMode) { g.setColor(Color.blue); g.drawString("Find Nearest Mark", 0, 20); } else {
+         if (mode == 0) g.drawString("Place First Corner", 0, 20);
+         if (mode == 1) g.drawString("Place Second Corner", 0, 20);
+         if (mode == 2) { g.setColor(Color.green); g.drawString("Set Player Start", 0, 20); }
+         if (mode == 3) { g.setColor(Color.red); g.drawString("Set Flag Position", 0, 20); }
+      }
       
       if (mode == 1) {
          g.setColor(Color.white);
@@ -64,42 +76,99 @@ public class LevelDesignerPanel extends JPanel {
          g.fillRect(fx, fy, 10, 10);
       }
       
+      g.setColor(Color.white);
       for (LevelElement elm : levelElements) {
-         g.setColor(Color.white);
          g.drawRect(elm.getX1(), elm.getY1(), elm.getWidth(), elm.getHeight());
+      }
+      
+      if (markX != -1) {
+         g.setColor(Color.blue);
+         g.fillRect(markX - 3, markY - 3, 6, 6);
       }
    
       repaint();
    }
    
+   // Returns the distance squared between the points
+   private int distance(int x1, int y1, int x2, int y2) {
+      return (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
+   }
+   
    private class MouseInput implements MouseListener {
       public void mouseClicked(MouseEvent e) {
-         if (mode == 0) {
-            if (reuseX) {
-               reuseX = false;
-            } else {
-               mx = e.getX();
+         int x;
+         if (reuseX) {
+            x = markX;
+         } else {
+            x = e.getX();
+         }
+         
+         int y;
+         if (reuseY) {
+            y = markY;
+         } else {
+            y = e.getY();
+         }
+         
+         // x and y are coordinates taking into account the mark
+      
+         if (markMode) {
+            if (levelElements.size() == 0) {
+               markMode = false; return;
+            }
+         
+            // Find nearest mark
+            markX = levelElements.get(0).getX1();
+            markY = levelElements.get(0).getY1();
+            // Mouse positions
+            int mx = e.getX();
+            int my = e.getY();
+            for (LevelElement elm: levelElements) {
+               int x1 = elm.getX1();
+               int y1 = elm.getY1();
+               int x2 = elm.getX2();
+               int y2 = elm.getY2();
+               
+               // If point 1 is closer to the mouse than the current
+               // mark is, replace it
+               if (distance(x1, y1, mx, my) < distance(markX, markY, mx, my)) {
+                  markX = x1; markY = y1;
+               }
+               
+               // If point 2 is closer to the mouse than the current
+               // mark is, replace it
+               if (distance(x2, y2, mx, my) < distance(markX, markY, mx, my)) {
+                  markX = x2; markY = y2;
+               }
+               
+               // Combinations of points 1 and 2 for the other two corners
+               
+               if (distance(x1, y2, mx, my) < distance(markX, markY, mx, my)) {
+                  markX = x1; markY = y2;
+               }
+
+               if (distance(x2, y1, mx, my) < distance(markX, markY, mx, my)) {
+                  markX = x2; markY = y1;
+               }
             }
             
-            if (reuseY) {
-               reuseY = false;
-            } else {
-               my = e.getY();
-            }
-            
+            markMode = false;
+         } else if (mode == 0) {
+            mx = x;
+            my = y; 
             mode = 1;
          } else if (mode == 1) {
             levelElements.add(new LevelElement(
-               mx, my, e.getX(), e.getY()
+               mx, my, x, y
             ));
             mode = 0;
-         } else if (mode == 2) {
-            sx = e.getX();
-            sy = e.getY();
+         } else if (mode == 2) { // player
+            sx = x;
+            sy = y;
             mode = 0;
-         } else if (mode == 3) {
-            fx = e.getX();
-            fy = e.getY();
+         } else if (mode == 3) { // flag
+            fx = x;
+            fy = y;
             mode = 0;
          }
       }
@@ -119,6 +188,8 @@ public class LevelDesignerPanel extends JPanel {
          if (c == e.VK_F) mode = 3;
          if (c == e.VK_X) reuseX = !reuseX;
          if (c == e.VK_Y) reuseY = !reuseY;
+         if (c == e.VK_ESCAPE) mode = 0;
+         if (c == e.VK_M) markMode = true;
       }
       public void keyPressed(KeyEvent e) {}
    }
