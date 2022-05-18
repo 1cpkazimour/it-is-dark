@@ -18,11 +18,11 @@ public class LevelElement implements Serializable {
    private boolean lit_left;
    private boolean lit_right;
    
-   public LevelElement(int xone, int yone, int xtwo, int ytwo) {
-      x1 = xone;
-      y1 = yone;
-      x2 = xtwo;
-      y2 = ytwo;
+   public LevelElement(int xa, int ya, int xb, int yb) {
+      x1 = Math.min(xa, xb);
+      y1 = Math.min(ya, yb);
+      x2 = Math.max(xa, xb);
+      y2 = Math.max(ya, yb);
    }
    
    // For testing purposes
