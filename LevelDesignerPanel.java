@@ -9,6 +9,10 @@ public class LevelDesignerPanel extends JPanel {
    // 2 = Start pos
    // 3 = End pos
    int mode = 0;
+   
+   // Location of mouse point, if it exists.
+   int mx = -1;
+   int my = -1;
 
    public LevelDesignerPanel() {
       this.setFocusable(true);
@@ -24,6 +28,12 @@ public class LevelDesignerPanel extends JPanel {
       
       g.setColor(Color.black);
       g.drawString("Mode: " + mode, 0, 10);
+      
+      if (mode == 1) {
+         g.setColor(Color.white);
+         g.fillRect(mx, my, 3, 3);
+         g.drawString(mx + "," + my, mx, my);
+      }
    
       repaint();
    }
@@ -32,7 +42,15 @@ public class LevelDesignerPanel extends JPanel {
    // Called from the GamePanel contructor
    private class GameInput implements MouseListener {
       public void mouseClicked(MouseEvent e) {
-         System.out.println(e);
+         System.out.println("Got here");
+         if (mode == 0) {
+            mx = e.getX();
+            my = e.getY();
+            mode = 1;
+         } else if (mode == 1) {
+            System.out.println(mx + "," + my + ":" + e.getX() + "," + e.getY());
+            mode = 0;
+         }
       }
       
       public void mouseEntered(MouseEvent e) {}
