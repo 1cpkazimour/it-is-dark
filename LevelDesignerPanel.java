@@ -17,7 +17,7 @@ public class LevelDesignerPanel extends JPanel {
    public LevelDesignerPanel() {
       this.setFocusable(true);
       
-      addMouseListener(new GameInput());
+      addMouseListener(new MouseInput());
    }
    
    public void paintComponent(Graphics g) {
@@ -26,8 +26,8 @@ public class LevelDesignerPanel extends JPanel {
       // Visual indication that you are in edit mode
       setBackground(new Color(127, 32, 127));
       
-      g.setColor(Color.black);
-      g.drawString("Mode: " + mode, 0, 10);
+      g.setColor(Color.white);
+      g.drawString("Mode: " + mode + "; Z undo rectangle; F change flag pos; P change player pos", 0, 10);
       
       if (mode == 1) {
          g.setColor(Color.white);
@@ -38,9 +38,7 @@ public class LevelDesignerPanel extends JPanel {
       repaint();
    }
    
-   // Private class to intantiate a Mouse object
-   // Called from the GamePanel contructor
-   private class GameInput implements MouseListener {
+   private class MouseInput implements MouseListener {
       public void mouseClicked(MouseEvent e) {
          System.out.println("Got here");
          if (mode == 0) {
