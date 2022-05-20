@@ -194,7 +194,7 @@ public class LevelDesignerPanel extends JPanel {
             if (markMode) markMode = false;
             else mode = 0;
          }
-         if (c == e.VK_M) markMode = true;
+         if (c == e.VK_M) markMode = !markMode;
       }
       public void keyPressed(KeyEvent e) {}
    }
