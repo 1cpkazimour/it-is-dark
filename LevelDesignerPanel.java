@@ -53,7 +53,7 @@ public class LevelDesignerPanel extends JPanel {
       setBackground(new Color(127, 32, 127));
       
       g.setColor(Color.white);
-      g.drawString("Z undo rectangle; F change flag pos; P change player pos; M set mark; X reuse x of mark; Y reuse y of mark", 0, 10);
+      g.drawString("Z undo rectangle; F change flag pos; P change player pos; M set mark; X reuse x of mark; Y reuse y of mark; L to load from file; S to save to file; Arrow keys to switch between levels", 0, 10);
       g.drawString("Level " + levelIndex, 0, 30);
       if (markMode) { g.setColor(Color.yellow); g.drawString("Find Nearest Mark", 0, 20); } else {
          if (mode == 0) g.drawString("Place First Corner", 0, 20);
