@@ -51,7 +51,7 @@ public class LevelDesignerPanel extends JPanel {
       
       g.setColor(Color.white);
       g.drawString("Z undo rectangle; F change flag pos; P change player pos; M set mark; X reuse x of mark; Y reuse y of mark", 0, 10);
-      if (markMode) { g.setColor(Color.blue); g.drawString("Find Nearest Mark", 0, 20); } else {
+      if (markMode) { g.setColor(Color.yellow); g.drawString("Find Nearest Mark", 0, 20); } else {
          if (mode == 0) g.drawString("Place First Corner", 0, 20);
          if (mode == 1) g.drawString("Place Second Corner", 0, 20);
          if (mode == 2) { g.setColor(Color.green); g.drawString("Set Player Start", 0, 20); }
@@ -80,7 +80,7 @@ public class LevelDesignerPanel extends JPanel {
       }
       
       if (markX != -1) {
-         g.setColor(Color.blue);
+         g.setColor(Color.yellow);
          g.fillRect(markX - 3, markY - 3, 6, 6);
       }
       
