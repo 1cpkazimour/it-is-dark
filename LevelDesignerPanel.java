@@ -27,6 +27,8 @@ public class LevelDesignerPanel extends JPanel {
    private int fy = -1;
    
    private ArrayList<LevelElement> levelElements;
+   private ArrayList<Level> levels;
+   private int levelIndex = 0;
    
    // Mark System
    private int markX = -1;
@@ -41,6 +43,7 @@ public class LevelDesignerPanel extends JPanel {
       addKeyListener(new KeyboardInput());
       
       levelElements = new ArrayList<LevelElement>();
+      levels = new ArrayList<Level>();
    }
    
    public void paintComponent(Graphics g) {
@@ -51,6 +54,7 @@ public class LevelDesignerPanel extends JPanel {
       
       g.setColor(Color.white);
       g.drawString("Z undo rectangle; F change flag pos; P change player pos; M set mark; X reuse x of mark; Y reuse y of mark", 0, 10);
+      g.drawString("Level " + levelIndex, 0, 30);
       if (markMode) { g.setColor(Color.yellow); g.drawString("Find Nearest Mark", 0, 20); } else {
          if (mode == 0) g.drawString("Place First Corner", 0, 20);
          if (mode == 1) g.drawString("Place Second Corner", 0, 20);
@@ -94,6 +98,32 @@ public class LevelDesignerPanel extends JPanel {
    // Returns the distance squared between the points
    private int distance(int x1, int y1, int x2, int y2) {
       return (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
+   }
+   
+   // Save the level in the levels arrayList
+   private void saveLevel() {
+      Level l = new Level(sx, sy, fx, fy, levelElements);
+      if (levelIndex >= levels.size()) {
+         levels.add(l);
+      } else {
+         levels.set(levelIndex, l);
+      }
+   }
+   
+   // Load the level from the current index
+   public void loadLevel() {
+      if (levelIndex >= levels.size()) {
+         levelElements = new ArrayList<LevelElement>();
+         sx = sy = fx = fy = -1;
+      } else {
+         Level l = levels.get(levelIndex);
+         levelElements = l.getElements();
+         sx = l.getStartX();
+         sy = l.getStartY();
+         fx = l.getEndX();
+         fy = l.getEndY();
+      }
+      markX = markY = -1;
    }
    
    private class MouseInput implements MouseListener {
@@ -195,6 +225,21 @@ public class LevelDesignerPanel extends JPanel {
             else mode = 0;
          }
          if (c == e.VK_M) markMode = !markMode;
+         if (c == e.VK_L) { // Load the levels
+            LevelData l = new LevelData("levels.ser");
+            levels = new ArrayList<Level>(Arrays.asList(l.getLevels()));
+            System.out.println(levels);
+         }
+         if (c == e.VK_RIGHT) {
+            saveLevel();
+            levelIndex++;
+            loadLevel();
+         }
+         if (c == e.VK_LEFT && levelIndex > 0) {
+            saveLevel();
+            levelIndex--;
+            loadLevel();
+         }
       }
       public void keyPressed(KeyEvent e) {}
    }
