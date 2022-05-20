@@ -228,7 +228,11 @@ public class LevelDesignerPanel extends JPanel {
          if (c == e.VK_L) { // Load the levels
             LevelData l = new LevelData("levels.ser");
             levels = new ArrayList<Level>(Arrays.asList(l.getLevels()));
-            System.out.println(levels);
+            levelIndex = 0;
+            loadLevel();
+         }
+         if (c == e.VK_S) { // Save the levels
+            LevelData.export(levels.toArray(new Level[levels.size()]), "levels.ser");
          }
          if (c == e.VK_RIGHT) {
             saveLevel();
