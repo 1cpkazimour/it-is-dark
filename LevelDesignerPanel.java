@@ -51,8 +51,6 @@ public class LevelDesignerPanel extends JPanel {
       
       g.setColor(Color.white);
       g.drawString("Z undo rectangle; F change flag pos; P change player pos; M set mark; X reuse x of mark; Y reuse y of mark", 0, 10);
-      if (reuseX) g.drawString("X", 0, 30);
-      if (reuseY) g.drawString("Y", 8, 30);
       if (markMode) { g.setColor(Color.blue); g.drawString("Find Nearest Mark", 0, 20); } else {
          if (mode == 0) g.drawString("Place First Corner", 0, 20);
          if (mode == 1) g.drawString("Place Second Corner", 0, 20);
@@ -85,6 +83,10 @@ public class LevelDesignerPanel extends JPanel {
          g.setColor(Color.blue);
          g.fillRect(markX - 3, markY - 3, 6, 6);
       }
+      
+      g.setColor(Color.red);
+      if (reuseX) g.drawLine(markX, 0, markX, 720);
+      if (reuseY) g.drawLine(0, markY, 1280, markY);
    
       repaint();
    }
@@ -188,7 +190,10 @@ public class LevelDesignerPanel extends JPanel {
          if (c == e.VK_F) mode = 3;
          if (c == e.VK_X) reuseX = !reuseX;
          if (c == e.VK_Y) reuseY = !reuseY;
-         if (c == e.VK_ESCAPE) mode = 0;
+         if (c == e.VK_ESCAPE) {
+            if (markMode) markMode = false;
+            else mode = 0;
+         }
          if (c == e.VK_M) markMode = true;
       }
       public void keyPressed(KeyEvent e) {}
