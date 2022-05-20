@@ -24,25 +24,30 @@ public class Slope extends LevelElement {
    
    // Checks collisions with player
    public Collision checkCollisions(int x, int y) {
+   if ((super.getWidth() * y) + (super.getHeight() * x) - (super.getWidth() * super.getHeight()) < 0){
+               System.out.println("collided");
+            }
       Collision box = super.checkCollisions(x, y);
       // Checks if the player collides with the sides or top of the slope
       if (box != null) {
          if (box.getSide() == Collision.Side.RIGHT && direction == Direction.LEFT) {
+
          }
          if (box.getSide() == Collision.Side.LEFT && direction == Direction.RIGHT) {
          }
          if (box.getSide() == Collision.Side.BOTTOM) {
+            
          }
          
       }
       return box;
    }
    
-   // Code for testing
-   //public static void main(String[] args) {
-   //   Slope test = new Slope(1, 1, 2, 2);
-   //   System.out.println(test.getSlope());
-   //}
+   public static void main(String[] args) {
+      Slope test = new Slope(5, 5, 10, 10, Direction.LEFT);
+      System.out.println(test.getSlope());
+      test.checkCollisions(6, 8);
+   }
    
    
 }

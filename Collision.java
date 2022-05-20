@@ -5,12 +5,15 @@ public class Collision {
       LEFT,
       RIGHT,
       TOP,
-      BOTTOM
+      BOTTOM,
+      CORNER_LEFT,
+      CORNER_RIGHT
    }
    public enum Type {
       NORMAL,
       DEADLY,
-      SLIPPERY
+      SLIPPERY_LEFT,
+      SLIPPERT_RIGHT
    }
    
    // Properties of collision
