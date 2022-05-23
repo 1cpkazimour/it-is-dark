@@ -11,6 +11,11 @@ public class LevelDesignerPanel extends JPanel {
    // 3 = End pos
    private int mode = 0;
    
+   // Type of object to place
+   // 0 = LevelElement
+   // 1 = Spike
+   private int objectType = 0;
+   
    // Is in mark mode? 
    private boolean markMode = false;
    
@@ -53,7 +58,7 @@ public class LevelDesignerPanel extends JPanel {
       setBackground(new Color(127, 32, 127));
       
       g.setColor(Color.white);
-      g.drawString("Z undo rectangle; F change flag pos; P change player pos; M set mark; X reuse x of mark; Y reuse y of mark; L to load from file; S to save to file; Arrow keys to switch between levels", 0, 10);
+      g.drawString("Z undo rectangle; F change flag pos; P change player pos; M set mark; X reuse x of mark; Y reuse y of mark; L to load from file; S to save to file; Arrow keys to switch between levels; T to change type of placed object", 0, 10);
       g.drawString("Level " + levelIndex, 0, 30);
       if (markMode) { g.setColor(Color.yellow); g.drawString("Find Nearest Mark", 0, 20); } else {
          if (mode == 0) g.drawString("Place First Corner", 0, 20);
@@ -61,7 +66,10 @@ public class LevelDesignerPanel extends JPanel {
          if (mode == 2) { g.setColor(Color.green); g.drawString("Set Player Start", 0, 20); }
          if (mode == 3) { g.setColor(Color.red); g.drawString("Set Flag Position", 0, 20); }
       }
-      
+      g.setColor(Color.white);
+      if (objectType == 0) g.drawString("Placing LevelElement", 140, 20);
+      if (objectType == 1) g.drawString("Placing Spike", 140, 20);
+            
       if (mode == 1) {
          g.setColor(Color.white);
          g.fillRect(mx, my, 3, 3);
@@ -78,8 +86,12 @@ public class LevelDesignerPanel extends JPanel {
          g.fillRect(fx, fy, 10, 10);
       }
       
-      g.setColor(Color.white);
       for (LevelElement elm : levelElements) {
+         if (elm instanceof Spike) {
+            g.setColor(Color.red);
+         } else {
+            g.setColor(Color.white);
+         }
          g.drawRect(elm.getX1(), elm.getY1(), elm.getWidth(), elm.getHeight());
       }
       
@@ -190,9 +202,15 @@ public class LevelDesignerPanel extends JPanel {
             my = y; 
             mode = 1;
          } else if (mode == 1) {
-            levelElements.add(new LevelElement(
-               mx, my, x, y
-            ));
+            if (objectType == 1) {
+               levelElements.add(new Spike(
+                  mx, my, x, y
+               ));
+            } else {
+               levelElements.add(new LevelElement(
+                  mx, my, x, y
+               ));
+            }
             mode = 0;
          } else if (mode == 2) { // player
             sx = x;
@@ -220,6 +238,7 @@ public class LevelDesignerPanel extends JPanel {
          if (c == e.VK_F) mode = 3;
          if (c == e.VK_X) reuseX = !reuseX;
          if (c == e.VK_Y) reuseY = !reuseY;
+         if (c == e.VK_T) objectType = (objectType + 1) % 2;
          if (c == e.VK_ESCAPE) {
             if (markMode) markMode = false;
             else mode = 0;
