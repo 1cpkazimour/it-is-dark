@@ -38,6 +38,9 @@ public class Slope extends LevelElement {
          double refx = ((c * xa) + ya + (x/c) - y) / ((-1 / c) - c);
          double refy = c * (refx - xa) + y;
          double d = Math.sqrt(Math.pow((refx - x), 2) + Math.pow((refy - y), 2));
+         if (y < refy) {
+            System.out.println("Bottom left collision");
+         }
          if (box.getSide() == Collision.Side.RIGHT && direction == Direction.LEFT) {
 
          }
