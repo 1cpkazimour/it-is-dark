@@ -251,6 +251,10 @@ public class LevelDesignerPanel extends JPanel {
             loadLevel();
          }
          if (c == e.VK_S) { // Save the levels
+            // Save the current levels
+            saveLevel();
+            // Remove all levels with no LevelElements
+            levels.removeIf(level -> level.getElements().size() == 0);
             LevelData.export(levels.toArray(new Level[levels.size()]), "levels.ser");
          }
          if (c == e.VK_RIGHT) {
