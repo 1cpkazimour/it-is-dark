@@ -30,6 +30,14 @@ public class Slope extends LevelElement {
       Collision box = super.checkCollisions(x, y);
       // Checks if the player collides with the sides or top of the slope
       if (box != null) {
+         double xa = super.getX1();
+         double xb = super.getX2();
+         double ya = super.getY1();
+         double yb = super.getY2();
+         double c = (yb - ya) / (xb - xa);
+         double refx = ((c * xa) + ya + (x/c) - y) / ((-1 / c) - c);
+         double refy = c * (refx - xa) + y;
+         double d = Math.sqrt(Math.pow((refx - x), 2) + Math.pow((refy - y), 2));
          if (box.getSide() == Collision.Side.RIGHT && direction == Direction.LEFT) {
 
          }
