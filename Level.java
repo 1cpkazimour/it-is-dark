@@ -36,6 +36,15 @@ public class Level implements Serializable {
       }
    }
    
+   // Creates new level and fills with LevelElements from a given arraylist
+   public Level(int sX, int sY, int eX, int eY, ArrayList<LevelElement> e) {
+      startX = sX;
+      startY = sY;
+      endX = eX;
+      endY = eY;
+      elements = e;
+   }
+   
    // Adds element to the level
    public void addElement(LevelElement e) {
       elements.add(e);

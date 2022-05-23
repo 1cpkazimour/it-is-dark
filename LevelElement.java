@@ -18,14 +18,13 @@ public class LevelElement implements Serializable {
    private boolean lit_left;
    private boolean lit_right;
 
-   // Color of faces
    private Color color = new Color(255, 255, 255);
-
-   public LevelElement(int xone, int yone, int xtwo, int ytwo) {
-      x1 = xone;
-      y1 = yone;
-      x2 = xtwo;
-      y2 = ytwo;
+   
+   public LevelElement(int xa, int ya, int xb, int yb) {
+      x1 = Math.min(xa, xb);
+      y1 = Math.min(ya, yb);
+      x2 = Math.max(xa, xb);
+      y2 = Math.max(ya, yb);
    }
 
    // For testing purposes
@@ -134,11 +133,11 @@ public class LevelElement implements Serializable {
    }
 
    // Main method for testing
-   // public static void main(String[] args) {
-   // LevelElement test = new LevelElement(0, 0, 60, 60);
-   // Collision c = test.checkCollisions(53, 10);
-   // System.out.println(c);
-   // System.out.println(c.getNewX(53));
-   // System.out.println(c.getNewY(10));
-   // }
+//    public static void main(String[] args) {
+//       LevelElement test = new LevelElement(0, 0, 60, 60);
+//       Collision c = test.checkCollisions(53, 10);
+//       System.out.println(c);
+//       System.out.println(c.getNewX(53));
+//       System.out.println(c.getNewY(10));  
+//    }
 }

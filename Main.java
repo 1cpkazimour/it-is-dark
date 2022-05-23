@@ -4,7 +4,10 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Main extends JFrame {
-   public Main(ScreenSize s) {
+   // Go into edit mode?
+   public static final boolean editMode = true;
+
+   public Main(Screensize s) {
       // Setup self as window
       this.setTitle("it is dark.");
       this.setDefaultCloseOperation(EXIT_ON_CLOSE); // Good window hygene
@@ -13,7 +16,11 @@ public class Main extends JFrame {
       this.setResizable(false);
       this.setLocationRelativeTo(null);
       this.getContentPane().setLayout(new BorderLayout());
-      this.getContentPane().add(new GamePanel()); // GamePanel holds game logic
+      if (editMode) {
+         this.getContentPane().add(new LevelDesignerPanel());
+      } else {
+         this.getContentPane().add(new GamePanel()); // GamePanel holds game logic      
+      }
       this.setVisible(true);
    }
 
