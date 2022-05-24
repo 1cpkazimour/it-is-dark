@@ -22,6 +22,16 @@ public class LevelData {
       }
    }
    
+   // Creates a new empty leveldata with the specified levels
+   public LevelData(Level[] l) {
+      levels = l;
+   }
+   
+   // Gets the entire level array
+   public Level[] getLevels() {
+      return levels;
+   }
+   
    // Returns random Level from array
    public Level get() {
       return levels[(int) (levels.length * Math.random())];
