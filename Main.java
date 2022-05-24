@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class Main extends JFrame {
    // Go into edit mode?
-   public static final boolean editMode = false;
+   public static final boolean editMode = true;
 
    public Main(ScreenSize s) {
       // Setup self as window
