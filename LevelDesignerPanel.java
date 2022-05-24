@@ -239,6 +239,7 @@ public class LevelDesignerPanel extends JPanel {
          if (c == e.VK_X) reuseX = !reuseX;
          if (c == e.VK_Y) reuseY = !reuseY;
          if (c == e.VK_T) objectType = (objectType + 1) % 2;
+         if (c == e.VK_L) levelElements.add(new LevelElement(0, 590, 1281, 720))
          if (c == e.VK_ESCAPE) {
             if (markMode) markMode = false;
             else mode = 0;
