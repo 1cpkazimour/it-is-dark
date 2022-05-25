@@ -93,7 +93,10 @@ public class GamePanel extends JPanel {
             if (e.getKeyCode() == e.VK_SPACE) key_space = true; 
             if (e.getKeyCode() == e.VK_W) key_w = true; 
             if (e.getKeyCode() == e.VK_A) key_a = true; 
-            if (e.getKeyCode() == e.VK_D) key_d = true; 
+            if (e.getKeyCode() == e.VK_D) key_d = true;
+            
+            // Add a next level key
+            if (isGaming && e.getKeyCode() == e.VK_G) /* give up */ newLevel();
          }
       }
 }
