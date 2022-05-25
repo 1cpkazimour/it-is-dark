@@ -36,15 +36,11 @@ public class Player {
    // This method assumes it is being called 60 times per second
    // TODO: add check for LevelElements
    public void move(boolean key_jump, boolean key_right, boolean key_left, Level level) {
-      if (key_jump && (y > FLOOR_LEVEL || didCollide)) { vy += 15; } // Checks that player is on floor
+      if (key_jump && didCollide) { vy += 15; } // Checks that player is on floor
       if (key_right) { x += speed; }
       if (key_left) { x -= speed; }
       y -= vy;
       vy--;
-      // Set vertical velocity to zero upon vertial collision
-      if (y > FLOOR_LEVEL) {
-         vy = 0;
-      }
       
       didCollide = false;
       

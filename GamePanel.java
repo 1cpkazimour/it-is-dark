@@ -7,9 +7,9 @@ import javax.swing.*;
 
 public class GamePanel extends JPanel {
       private Player player = null;
-      //private LevelData levels = new LevelData("levels.scp");
-      //private Level currentLevel = null;
-      private Level level = new Level(-1, -1, -1, -1, new LevelElement[]{new LevelElement(100,440,200,550), new LevelElement(250,250,450,300), new Spike(300, 500, 400, 600)});
+      private LevelData levels = new LevelData("levels.ser");
+      private Level level = null;
+      //private Level level = new Level(-1, -1, -1, -1, new LevelElement[]{new LevelElement(100,440,200,550), new LevelElement(250,250,450,300), new Spike(300, 500, 400, 600)});
       
       // Represents whether the game is in the menus or not
       private boolean isGaming = false;
@@ -18,9 +18,6 @@ public class GamePanel extends JPanel {
       
       public GamePanel() {
          this.setFocusable(true); // Events only fire for a component if it has focus, so this call is necessary
-         
-         // Make a player
-         player = new Player(0, 200);
          
          // Handle Inputs, see below
          addKeyListener(new GameInput());
@@ -33,6 +30,12 @@ public class GamePanel extends JPanel {
             }
          };
          new Timer(delay, update).start();
+      }
+      
+      private void newLevel() {
+         System.out.println("Got here");
+         level = levels.get();
+         player = new Player(level.getStartX(), level.getStartY());
       }
       
       private void update() {
@@ -59,6 +62,7 @@ public class GamePanel extends JPanel {
             
             if (key_space) {
                isGaming = true;
+               newLevel();
             }
          }
          
