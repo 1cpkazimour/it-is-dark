@@ -47,11 +47,7 @@ public class Player {
       Collision collision = level.checkCollisions(x, y);
       while (collision != null) {
          if (collision.getType() == Collision.Type.DEADLY) {
-            color = new Color(255, 0, 0);
-            x = level.getStartX();
-            y = level.getStartY();
-            vy = 0;
-            color = new Color(255, 255, 255);
+            die(level);
             break;
          }
          x = collision.getNewX(x);
@@ -62,7 +58,13 @@ public class Player {
          collision = level.checkCollisions(x, y);
       }
       
-      
+      if (y > 720) die(level);
+   }
+   
+   private void die(Level level) {
+      x = level.getStartX();
+      y = level.getStartY();
+      vy = 0;
    }
    
    // getters for position
