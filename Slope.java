@@ -24,9 +24,6 @@ public class Slope extends LevelElement {
    
    // Checks collisions with player
    public Collision checkCollisions(int x, int y) {
-   if ((super.getWidth() * y) + (super.getHeight() * x) - (super.getWidth() * super.getHeight()) < 0){
-               System.out.println("collided");
-            }
       Collision box = super.checkCollisions(x, y);
       // Checks if the player collides with the sides or top of the slope
       if (box != null) {
@@ -35,12 +32,10 @@ public class Slope extends LevelElement {
          double ya = super.getY1();
          double yb = super.getY2();
          double c = (yb - ya) / (xb - xa);
-         double refx = ((c * xa) + ya + (x/c) - y) / ((-1 / c) - c);
+         double refx = -((c * xa) + ya + (x/c) - y) / (-(1 / c) - c);
          double refy = c * (refx - xa) + y;
          double d = Math.sqrt(Math.pow((refx - x), 2) + Math.pow((refy - y), 2));
-         if (y < refy) {
-            System.out.println("Bottom left collision");
-         }
+         System.out.println("x: " + x + " y: " + y + " d: " + d + " refx: " + refx + " refy: " + refy);
          if (box.getSide() == Collision.Side.RIGHT && direction == Direction.LEFT) {
 
          }
@@ -55,9 +50,14 @@ public class Slope extends LevelElement {
    }
    
    public static void main(String[] args) {
-      Slope test = new Slope(5, 5, 10, 10, Direction.LEFT);
+      Slope test = new Slope(6, 6, 11, 11, Direction.LEFT);
       System.out.println(test.getSlope());
-      test.checkCollisions(6, 8);
+      for (int x = 0; x <= 11; x++) {
+         for (int y = 0; y <= 11; y++) {
+            test.checkCollisions(x, y);
+            
+         }
+      }
    }
    
    
