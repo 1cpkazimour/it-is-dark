@@ -9,7 +9,6 @@ public class GamePanel extends JPanel {
       private Player player = null;
       private LevelData levels = new LevelData("levels.ser");
       private Level level = null;
-      //private Level level = new Level(-1, -1, -1, -1, new LevelElement[]{new LevelElement(100,440,200,550), new LevelElement(250,250,450,300), new Spike(300, 500, 400, 600)});
       
       // Represents whether the game is in the menus or not
       private boolean isGaming = false;
