@@ -98,6 +98,12 @@ public class Level implements Serializable {
       return output;
    }
    
+   public void clearPaint() {
+      for (LevelElement e: elements) {
+         e.clearPaint();
+      }
+   }
+   
    // Getters for start and end positions
    public int getStartX() { return startX; }
    public int getStartY() { return startY; }
