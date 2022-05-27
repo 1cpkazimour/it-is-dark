@@ -4,6 +4,8 @@ import java.awt.*;
 
 // This class represents a single level object used to hold the level data for the game
 public class Level implements Serializable {
+   private static final long serialVersionUID = 6900062191966977137L;
+
    // Staring X and Y coordinates for player
    private int startX;
    private int startY;
