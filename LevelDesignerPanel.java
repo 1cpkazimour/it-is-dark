@@ -83,7 +83,7 @@ public class LevelDesignerPanel extends JPanel {
       
       if (fx != -1) {
          g.setColor(Color.red);
-         g.fillRect(fx, fy, 10, 10);
+         g.fillRect(fx - 5, fy - 5, 10, 10);
       }
       
       for (LevelElement elm : levelElements) {
