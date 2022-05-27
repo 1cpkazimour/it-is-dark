@@ -87,6 +87,9 @@ public class Level implements Serializable {
       for (LevelElement e : elements) {
          e.drawFaces(g);
       }
+      
+      g.setColor(Color.green);
+      g.fillRect(endX - 5, endY - 5, 10, 10);
    }
    
    // Prints the information about the level and each LevelElement. Used for testing purposes

@@ -39,7 +39,8 @@ public class GamePanel extends JPanel {
       }
       
       private void update() {
-         player.move(key_up || key_space || key_w, key_right || key_d, key_left || key_a, level);
+         boolean win = player.move(key_up || key_space || key_w, key_right || key_d, key_left || key_a, level);
+         if (win) newLevel();
       }
    
       // Repaint the canvas

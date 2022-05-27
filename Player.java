@@ -34,8 +34,8 @@ public class Player {
    
    // Move based on keys down
    // This method assumes it is being called 60 times per second
-   // TODO: add check for LevelElements
-   public void move(boolean key_jump, boolean key_right, boolean key_left, Level level) {
+   // Returns true if the level has been won
+   public boolean move(boolean key_jump, boolean key_right, boolean key_left, Level level) {
       if (key_jump && didCollide) { vy += 15; } // Checks that player is on floor
       if (key_right) { x += speed; }
       if (key_left) { x -= speed; }
@@ -59,6 +59,9 @@ public class Player {
       }
       
       if (y > 720) die(level);
+      
+      // Is on level end
+      return Math.abs(level.getEndX() - x) < SIZE && Math.abs(level.getEndY() - y) < SIZE;
    }
    
    private void die(Level level) {
