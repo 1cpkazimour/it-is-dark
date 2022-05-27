@@ -3,6 +3,7 @@ import java.awt.*;
 
 // Represents a single element in a level. Maybe should be made an interface?
 public class LevelElement implements Serializable {
+   private static final long serialVersionUID = 9060099550825241414L;
 
    // X and Y coordinates of one corner
    private int x1;
@@ -121,6 +122,11 @@ public class LevelElement implements Serializable {
 
    public int getY2() {
       return y2;
+   }
+   
+   // Remove all paint from the object
+   public void clearPaint() {
+      lit_top = lit_bottom = lit_left = lit_right = false;
    }
 
    // Compute properties of the objects

@@ -4,6 +4,8 @@ import java.awt.*;
 
 // This class represents a single level object used to hold the level data for the game
 public class Level implements Serializable {
+   private static final long serialVersionUID = 6900062191966977137L;
+
    // Staring X and Y coordinates for player
    private int startX;
    private int startY;
@@ -85,6 +87,9 @@ public class Level implements Serializable {
       for (LevelElement e : elements) {
          e.drawFaces(g);
       }
+      
+      g.setColor(Color.green);
+      g.fillRect(endX - 5, endY - 5, 10, 10);
    }
    
    // Prints the information about the level and each LevelElement. Used for testing purposes
@@ -94,6 +99,12 @@ public class Level implements Serializable {
          output += e.toString() + "\n";
       }
       return output;
+   }
+   
+   public void clearPaint() {
+      for (LevelElement e: elements) {
+         e.clearPaint();
+      }
    }
    
    // Getters for start and end positions
