@@ -50,10 +50,10 @@ public class Slope extends LevelElement {
    }
    
    public static void main(String[] args) {
-      Slope test = new Slope(6, 6, 11, 11, Direction.LEFT);
+      Slope test = new Slope(50, 50, 100, 100, Direction.LEFT);
       System.out.println(test.getSlope());
-      for (int x = 0; x <= 11; x++) {
-         for (int y = 0; y <= 11; y++) {
+      for (int x = 0; x <= 20; x++) {
+         for (int y = 0; y <= 20; y++) {
             test.checkCollisions(x, y);
             
          }
