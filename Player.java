@@ -34,28 +34,20 @@ public class Player {
    
    // Move based on keys down
    // This method assumes it is being called 60 times per second
-   // TODO: add check for LevelElements
-   public void move(boolean key_jump, boolean key_right, boolean key_left, Level level) {
-      if (key_jump && (y > FLOOR_LEVEL || didCollide)) { vy += 15; } // Checks that player is on floor
+   // Returns true if the level has been won
+   public boolean move(boolean key_jump, boolean key_right, boolean key_left, Level level) {
+      if (key_jump && didCollide) { vy += 15; } // Checks that player is on floor
       if (key_right) { x += speed; }
       if (key_left) { x -= speed; }
       y -= vy;
       vy--;
-      // Set vertical velocity to zero upon vertial collision
-      if (y > FLOOR_LEVEL) {
-         vy = 0;
-      }
       
       didCollide = false;
       
       Collision collision = level.checkCollisions(x, y);
       while (collision != null) {
          if (collision.getType() == Collision.Type.DEADLY) {
-            color = new Color(255, 0, 0);
-            x = level.getStartX();
-            y = level.getStartY();
-            vy = 0;
-            color = new Color(255, 255, 255);
+            die(level);
             break;
          }
          x = collision.getNewX(x);
@@ -66,7 +58,16 @@ public class Player {
          collision = level.checkCollisions(x, y);
       }
       
+      if (y > 720) die(level);
       
+      // Is on level end
+      return Math.abs(level.getEndX() - x) < SIZE && Math.abs(level.getEndY() - y) < SIZE;
+   }
+   
+   private void die(Level level) {
+      x = level.getStartX();
+      y = level.getStartY();
+      vy = 0;
    }
    
    // getters for position
