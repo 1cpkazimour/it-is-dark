@@ -10,8 +10,8 @@ public class Slope extends LevelElement {
       RIGHT
    }
    
-   public Slope(int xone, int xtwo, int yone, int ytwo, Direction d) {
-      super(xone, xtwo, yone, ytwo);
+   public Slope(int xone, int yone, int xtwo, int ytwo, Direction d) {
+      super(xone, yone, xtwo, ytwo);
       direction = d;
    }
    
@@ -37,23 +37,40 @@ public class Slope extends LevelElement {
          double d = Math.sqrt(Math.pow((refx - x), 2) + Math.pow((refy - y), 2));
          System.out.println("x: " + x + " y: " + y + " d: " + d + " refx: " + refx + " refy: " + refy);
          if (box.getSide() == Collision.Side.RIGHT && direction == Direction.LEFT) {
+            double xa = super.getX1();
+            double xb = super.getX2();
+            double ya = super.getY1();
+            double yb = super.getY2();
+            double c = (yb - ya) / (xb - xa);
+            double refx = -((c * xa) + ya + (x/c) - y) / (-(1 / c) - c);
+            double refy = c * (refx - xa) + y;
+            double d = Math.sqrt(Math.pow((refx - x), 2) + Math.pow((refy - y), 2));
+            System.out.println("x: " + x + " y: " + y + " d: " + d + " refx: " + refx + " refy: " + refy);
+            if (y + Player.SIZE > refy) {
+               return new Collision(Collision.Side.BOTTOM, Collision)
+               
+            } else {
+               System.out.println("2");
+               
+            }
 
          }
          if (box.getSide() == Collision.Side.LEFT && direction == Direction.RIGHT) {
+            
          }
          if (box.getSide() == Collision.Side.BOTTOM) {
             
          }
          
       }
-      return box;
+      return null;
    }
    
    public static void main(String[] args) {
-      Slope test = new Slope(50, 50, 100, 100, Direction.LEFT);
+      Slope test = new Slope(6, 6, 11, 11, Direction.LEFT);
       System.out.println(test.getSlope());
-      for (int x = 0; x <= 20; x++) {
-         for (int y = 0; y <= 20; y++) {
+      for (int x = 0; x <= 11; x++) {
+         for (int y = 0; y <= 11; y++) {
             test.checkCollisions(x, y);
             
          }
