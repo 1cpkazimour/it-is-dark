@@ -11,7 +11,7 @@ public class Main extends JFrame {
       // Setup self as window
       this.setTitle("it is dark.");
       this.setDefaultCloseOperation(EXIT_ON_CLOSE); // Good window hygene
-      //this.setSize(new Dimension(s.getWidth(), s.getHeight()));
+      // this.setSize(new Dimension(s.getWidth(), s.getHeight()));
       this.setSize(new Dimension(1280, 720));
       this.setResizable(false);
       this.setLocationRelativeTo(null);
@@ -19,7 +19,7 @@ public class Main extends JFrame {
       if (editMode) {
          this.getContentPane().add(new LevelDesignerPanel());
       } else {
-         this.getContentPane().add(new GamePanel()); // GamePanel holds game logic      
+         this.getContentPane().add(new GamePanel()); // GamePanel holds game logic
       }
       this.setVisible(true);
    }
