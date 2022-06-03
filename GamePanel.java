@@ -33,7 +33,7 @@ public class GamePanel extends JPanel {
       
       private void newLevel() {
          System.out.println("Got here");
-         level = levels.get();
+         level = new Level(0,0,3000,1,new LevelElement[]{new LevelElement(0, 300, 100, 900), new LevelElement(200, 400, 500, 1000), new Slope(200, 100, 500, 300, Slope.Direction.LEFT)});
          level.clearPaint();
          player = new Player(level.getStartX(), level.getStartY());
       }

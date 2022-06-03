@@ -27,16 +27,8 @@ public class Slope extends LevelElement {
       Collision box = super.checkCollisions(x, y);
       // Checks if the player collides with the sides or top of the slope
       if (box != null) {
-         double xa = super.getX1();
-         double xb = super.getX2();
-         double ya = super.getY1();
-         double yb = super.getY2();
-         double c = (yb - ya) / (xb - xa);
-         double refx = -((c * xa) + ya + (x/c) - y) / (-(1 / c) - c);
-         double refy = c * (refx - xa) + y;
-         double d = Math.sqrt(Math.pow((refx - x), 2) + Math.pow((refy - y), 2));
-         System.out.println("x: " + x + " y: " + y + " d: " + d + " refx: " + refx + " refy: " + refy);
-         if (box.getSide() == Collision.Side.RIGHT && direction == Direction.LEFT) {
+         //System.out.println("x: " + x + " y: " + y + " d: " + d + " refx: " + refx + " refy: " + refy);
+         if ((box.getSide() == Collision.Side.RIGHT || box.getSide() == Collision.Side.BOTTOM) && direction == Direction.RIGHT) {
             double xa = super.getX1();
             double xb = super.getX2();
             double ya = super.getY1();
@@ -45,25 +37,36 @@ public class Slope extends LevelElement {
             double refx = -((c * xa) + ya + (x/c) - y) / (-(1 / c) - c);
             double refy = c * (refx - xa) + y;
             double d = Math.sqrt(Math.pow((refx - x), 2) + Math.pow((refy - y), 2));
-            System.out.println("x: " + x + " y: " + y + " d: " + d + " refx: " + refx + " refy: " + refy);
             if (y + Player.SIZE > refy) {
-               return new Collision(Collision.Side.BOTTOM, Collision)
+               return new SlopeCollision(Collision.Side.BOTTOM, Collision.Type.NORMAL, (int) refx, (int) refy, (int) d);
                
             } else {
-               System.out.println("2");
+               return null;
                
             }
 
          }
-         if (box.getSide() == Collision.Side.LEFT && direction == Direction.RIGHT) {
-            
-         }
-         if (box.getSide() == Collision.Side.BOTTOM) {
-            
+         if ((box.getSide() == Collision.Side.RIGHT || box.getSide() == Collision.Side.BOTTOM) && direction == Direction.LEFT) {
+            double xa = super.getX1();
+            double xb = super.getX2();
+            double ya = super.getY2();
+            double yb = super.getY1();
+            double c = (yb - ya) / (xb - xa);
+            double refx = -((c * xa) + ya + (x/c) - y) / (-(1 / c) - c);
+            double refy = c * (refx - xa) + y;
+            double d = Math.sqrt(Math.pow((refx - x), 2) + Math.pow((refy - y), 2));
+            if (y + Player.SIZE > refy) {
+               return new SlopeCollision(Collision.Side.BOTTOM, Collision.Type.NORMAL, (int) refx, (int) refy, (int) d);
+               
+            } else {
+               return null;
+               
+            }
+
          }
          
       }
-      return null;
+      return box;
    }
    
    public static void main(String[] args) {
