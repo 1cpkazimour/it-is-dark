@@ -29,6 +29,7 @@ public class Slope extends LevelElement {
       if (box != null) {
          //System.out.println("x: " + x + " y: " + y + " d: " + d + " refx: " + refx + " refy: " + refy);
          if ((box.getSide() == Collision.Side.RIGHT || box.getSide() == Collision.Side.BOTTOM) && direction == Direction.RIGHT) {
+            y += Player.SIZE;
             double xa = super.getX1();
             double xb = super.getX2();
             double ya = super.getY1();
@@ -38,7 +39,7 @@ public class Slope extends LevelElement {
             double refy = c * (refx - xa) + y;
             double d = Math.sqrt(Math.pow((refx - x), 2) + Math.pow((refy - y), 2));
             if (y + Player.SIZE > refy) {
-               return new SlopeCollision(Collision.Side.BOTTOM, Collision.Type.NORMAL, (int) refx, (int) refy, (int) d);
+               return new SlopeCollision(Collision.Side.BOTTOM, Collision.Type.NORMAL, (int) refx, (int) refy - Player.SIZE, (int) d);
                
             } else {
                return null;
@@ -47,6 +48,8 @@ public class Slope extends LevelElement {
 
          }
          if ((box.getSide() == Collision.Side.RIGHT || box.getSide() == Collision.Side.BOTTOM) && direction == Direction.LEFT) {
+            x += Player.SIZE;
+            y += Player.SIZE;
             double xa = super.getX1();
             double xb = super.getX2();
             double ya = super.getY2();
@@ -56,7 +59,7 @@ public class Slope extends LevelElement {
             double refy = c * (refx - xa) + y;
             double d = Math.sqrt(Math.pow((refx - x), 2) + Math.pow((refy - y), 2));
             if (y + Player.SIZE > refy) {
-               return new SlopeCollision(Collision.Side.BOTTOM, Collision.Type.NORMAL, (int) refx, (int) refy, (int) d);
+               return new SlopeCollision(Collision.Side.BOTTOM, Collision.Type.NORMAL, (int) refx - Player.SIZE, (int) refy - Player.SIZE, (int) d);
                
             } else {
                return null;
