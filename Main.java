@@ -1,7 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
+
+/**
+* It is dark is a simple platformer game with basic graphics and unique gameplay.
+* In each level, the player starts with a black screen, and has to slowly reveal the level
+* by moving around to reveal the surfaces in the level.
+* @author Cameron Kazimour, Julian Shah, Rohan Kapur
+*/
 
 public class Main extends JFrame {
    // Go into edit mode?
