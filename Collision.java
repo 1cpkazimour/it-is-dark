@@ -13,7 +13,7 @@ public class Collision {
       NORMAL,
       DEADLY,
       SLIPPERY_LEFT,
-      SLIPPERT_RIGHT
+      SLIPPERY_RIGHT
    }
    
    // Properties of collision
