@@ -45,7 +45,8 @@ public class Player {
       didCollide = false;
       
       Collision collision = level.checkCollisions(x, y);
-      while (collision != null) {
+      int maxCollisions = 100;
+      while (collision != null && maxCollisions >= 0) {
          if (collision.getType() == Collision.Type.DEADLY) {
             die(level);
             break;
@@ -56,6 +57,7 @@ public class Player {
          didCollide = true;
          
          collision = level.checkCollisions(x, y);
+	 maxCollisions--;
       }
       
       if (y > 720) die(level);
