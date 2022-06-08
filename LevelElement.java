@@ -1,26 +1,67 @@
 import java.io.Serializable;
 import java.awt.*;
 
-// Represents a single element in a level. Maybe should be made an interface?
+/**
+ * Represents a single rectangular element (box) in a Level.
+ */
 public class LevelElement implements Serializable {
+   /**
+    * Internal UID for serialization.
+    */
    private static final long serialVersionUID = 9060099550825241414L;
 
-   // X and Y coordinates of one corner
+   /**
+    * X coordinate of first corner
+    */
    private int x1;
+   
+   /**
+    * Y coordinate of first corner
+    */
    private int y1;
 
-   // X and Y coordinates of another corner
+   /**
+    * X coordinate of second corner
+    */
    private int x2;
+   
+   /**
+    * X coordinate of second corner
+    */
    private int y2;
 
-   // Whether each face has been collided with or not
+   /**
+    * Whether or not the top face has been illumnated (collided with)
+    */
    private boolean lit_top;
+   
+   /**
+    * Whether or not the bottom face has been illumnated (collided with)
+    */
    private boolean lit_bottom;
+   
+   /**
+    * Whether or not the left face has been illumnated (collided with)
+    */
    private boolean lit_left;
+   
+   /**
+    * Whether or not the right face has been illumnated (collided with)
+    */
    private boolean lit_right;
-
+   
+   /**
+    * The color of the faces when illumniated
+    */
    private Color color = new Color(255, 255, 255);
    
+   /**
+    * Creates a new LevelElement with given coordinates.
+    * @param xa The first x coordinate
+    * @param ya The first y coordinate
+    * @param xb The second x coordinate
+    * @param yb The second y coordinate
+    */
    public LevelElement(int xa, int ya, int xb, int yb) {
       x1 = Math.min(xa, xb);
       y1 = Math.min(ya, yb);
