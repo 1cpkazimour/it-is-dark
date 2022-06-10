@@ -24,19 +24,22 @@ public class Collision {
    }
    
    /**
-    * The type of collison that took place
+    * The type of collison that took place.
     */
    private Type collisionType;
+   
    /**
-    * The side of the player involved in the collision
+    * The side of the player involved in the collision.
     */
    private Side collisionSide;
+   
    /**
-    * The new X or Y value of the plane for the player to snap to
+    * The new X or Y value of the plane for the player to snap to.
     */
-   private int line; // new X or Y value
+   private int line;
+   
    /**
-    * How far the player has to move to correct this collision
+    * How far the player has to move to correct this collision.
     */
    private int degree;
    

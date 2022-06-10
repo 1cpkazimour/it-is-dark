@@ -2,22 +2,52 @@ import java.util.*;
 import java.io.Serializable;
 import java.awt.*;
 
-// This class represents a single level object used to hold the level data for the game
+/**
+ * Represents a single level in the game containing many LevelElements that make up the level.
+ */
 public class Level implements Serializable {
+
+   /**
+    * Internal UID for serialization.
+    */
    private static final long serialVersionUID = 6900062191966977137L;
 
    // Staring X and Y coordinates for player
+   
+   /**
+    * The X coordinate that the player starts the level at.
+    */
    private int startX;
+   
+   /**
+    * The Y coordinate that the player starts the level at.
+    */
    private int startY;
    
    // X and Y coordinates of player objective
+   
+   /**
+    * The X coordinate that the player needs to reach to beat the level.
+    */
    private int endX;
+   
+   /**
+    * The Y coordinate that the player needs to reach to beat the level.
+    */
    private int endY;
    
-   // ArrayList containing all the elements that make up the level
+   /**
+    * Contains all of the LevelElements that make up the level.
+    */
    private ArrayList<LevelElement> elements;
    
-   // Creates new empty level with given start and objective points
+   /**
+    * Creates a new empty Level with a given start and end point.
+    * @param sX Starting X position of player.
+    * @param sY Starting Y position of player.
+    * @param eX X position of level objective.
+    * @param eY Y position of level objective.
+    */
    public Level(int sX, int sY, int eX, int eY) {
       startX = sX;
       startY = sY;
@@ -26,47 +56,83 @@ public class Level implements Serializable {
       elements = new ArrayList<LevelElement>();
    }
    
-   // Creates new level and fills with LevelElements from a given array
-   public Level(int sX, int sY, int eX, int eY, LevelElement[] e) {
+   /**
+    * Creates a new Level with a given start and end point
+    * and fills it with LevelElements from a given array.
+    * @param sX Starting X position of player.
+    * @param sY Starting Y position of player.
+    * @param eX X position of level objective.
+    * @param eY Y position of level objective.
+    * @param levelElements Array of LevelElements to fill level with.
+    */
+   public Level(int sX, int sY, int eX, int eY, LevelElement[] levelElements) {
       startX = sX;
       startY = sY;
       endX = eX;
       endY = eY;
       elements = new ArrayList<LevelElement>();
-      for(LevelElement element : e){
+      for(LevelElement element : levelElements){
          elements.add(element);
       }
    }
    
-   // Creates new level and fills with LevelElements from a given arraylist
-   public Level(int sX, int sY, int eX, int eY, ArrayList<LevelElement> e) {
+   /**
+    * Creates a new Level with a given start and end point
+    * and fills it with LevelElements from a given ArrayList.
+    * @param sX Starting X position of player.
+    * @param sY Starting Y position of player.
+    * @param eX X position of level objective.
+    * @param eY Y position of level objective.
+    * @param levelElements ArrayList of LevelElements to fill level with.
+    */
+   public Level(int sX, int sY, int eX, int eY, ArrayList<LevelElement> levelElements) {
       startX = sX;
       startY = sY;
       endX = eX;
       endY = eY;
-      elements = e;
+      elements = levelElements;
    }
    
-   // Adds element to the level
-   public void addElement(LevelElement e) {
-      elements.add(e);
+   /**
+    * Adds a LevelElement to the Level.
+    * @param element LevelElement to add to this Level.
+    */
+   public void addElement(LevelElement element) {
+      elements.add(element);
    }
    
-   // Returns ArrayList containing all elements in level
+   /**
+    * Exports all of the LevelElements in this level to an ArrayList.
+    * @return ArrayList containing all LevelElements.
+    */
    public ArrayList<LevelElement> getElements() {
       return elements;
    }
    
-   // Returns LevelElement at a given index.
+   /**
+    * Gets a LevelElement at a given index.
+    * @param index Index to get LevelElement from.
+    * @return LevelElement at given index.
+    */
    public LevelElement getElement(int index) {
       return elements.get(index);
    }
    
-   // Returns the number of elements in level
+   /**
+    * Gets the length of a level (number of LevelElements).
+    * @return integer length of level.
+    */
    public int getLength() {
       return elements.size();
    }
    
+   /**
+    * Checks whether a give set of coordinates collides with the LevelElements in this Level.
+    * @param x The X coordinate to check.
+    * @param y The Y coordinate to check.
+    * @return A Collision object containing collision data of the best collision
+    * (collision that snaps the player the shortest distance) if applicable, otherwise null.
+    */
    public Collision checkCollisions(int x, int y) {
       Collision bestCollision = null;
       int bestDegree = Integer.MAX_VALUE;
@@ -82,7 +148,10 @@ public class Level implements Serializable {
       return bestCollision;
    }
    
-   // Draws lines on the faces of LevelElements that the player has collided with
+   /**
+    * Draws a line for each of the faces of illuminated LevelElements.
+    * @param g java Graphics object to use to draw faces.
+    */
    public void paint(Graphics g) {
       for (LevelElement e : elements) {
          e.drawFaces(g);
@@ -92,15 +161,9 @@ public class Level implements Serializable {
       g.fillRect(endX - 5, endY - 5, 10, 10);
    }
    
-   // Prints the information about the level and each LevelElement. Used for testing purposes
-   public String toString() {
-      String output = "Start: (" + startX  + ", " + startY + ") / " + "End: (" + endX  + ", " + endY + ")\n" ;
-      for(LevelElement e : elements){
-         output += e.toString() + "\n";
-      }
-      return output;
-   }
-   
+   /**
+    * Removes illumination for all elements in this Level.
+    */
    public void clearPaint() {
       for (LevelElement e: elements) {
          e.clearPaint();
@@ -108,8 +171,28 @@ public class Level implements Serializable {
    }
    
    // Getters for start and end positions
+   
+   /**
+    * Gets the X coordinate of the starting point of the Level.
+    * @return integer value of X coordinate.
+    */
    public int getStartX() { return startX; }
+   
+   /**
+    * Gets the Y coordinate of the starting point of the Level.
+    * @return integer value of Y coordinate.
+    */
    public int getStartY() { return startY; }
+   
+   /**
+    * Gets the X coordinate of the ending point (objective) of the Level.
+    * @return integer value of X coordinate.
+    */
    public int getEndX() { return endX; }
+   
+   /**
+    * Gets the Y coordinate of the ending point (objective) of the Level.
+    * @return integer value of Y coordinate.
+    */
    public int getEndY() { return endY; }
 }
