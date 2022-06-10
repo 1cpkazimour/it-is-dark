@@ -93,7 +93,7 @@ public class LevelElement implements Serializable {
    }
 
    /**
-    * Checks whether a give set of coordinates collides with this LevelElement.
+    * Checks whether a given set of coordinates collides with this LevelElement.
     * @param x The X coordinate to check.
     * @param y The Y coordinate to check.
     * @return A Collision object containing collision data if applicable, otherwise null.
