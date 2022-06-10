@@ -68,12 +68,11 @@ public class LevelElement implements Serializable {
       x2 = Math.max(xa, xb);
       y2 = Math.max(ya, yb);
    }
-
-   // For testing purposes
-   public String toString() {
-      return x1 + ", " + y1 + ", " + x2 + ", " + y2;
-   }
-
+   
+   /**
+    * Draws the faces of the LevelElement that are set as illuminated.
+    * @param g The graphics object used to draw on the screen.
+    */
    public void drawFaces(Graphics g) {
       if (lit_top) {
          g.setColor(color);
@@ -93,6 +92,12 @@ public class LevelElement implements Serializable {
       }
    }
 
+   /**
+    * Checks whether a give set of coordinates collides with this LevelElement.
+    * @param x The X coordinate to check.
+    * @param y The Y coordinate to check.
+    * @return A Collision object containing collision data if applicable, otherwise null.
+    */
    public Collision checkCollisions(int x, int y) {
       int size = Player.SIZE;
 
@@ -138,53 +143,73 @@ public class LevelElement implements Serializable {
          return new Collision(Collision.Side.TOP, Collision.Type.NORMAL, y2, -top_gap);
       }
 
-      // We don't need to check for anything, we know it's bottom
+      // We don't need to check for anything, we know it's bottom.
       lit_top = true;
       return new Collision(Collision.Side.BOTTOM, Collision.Type.NORMAL, y1 - size, -bottom_gap);
    }
 
-   // Change face color
+   /**
+    * Changes the color of the LevelElement when it is illuminated.
+    * @param color The color to use when drawing the faces of LevelElements.
+    */
    public void setColor(Color color) {
       this.color = color;
    }
 
    // Getters
+   
+   /**
+    * Gets the X value of the first coordinate pair.
+    * @return integer value of X coordinate.
+    */
    public int getX1() {
       return x1;
    }
-
+   
+   /**
+    * Gets the Y value of the first coordinate pair.
+    * @return integer value of Y coordinate.
+    */
    public int getY1() {
       return y1;
    }
 
+   /**
+    * Gets the X value of the second coordinate pair.
+    * @return integer value of X coordinate.
+    */
    public int getX2() {
       return x2;
    }
 
+   /**
+    * Gets the Y value of the second coordinate pair.
+    * @return integer value of Y coordinate.
+    */
    public int getY2() {
       return y2;
    }
    
-   // Remove all paint from the object
+   /**
+    * Removes illumination from all faces of this LevelElement.
+    */
    public void clearPaint() {
       lit_top = lit_bottom = lit_left = lit_right = false;
    }
 
-   // Compute properties of the objects
+   /**
+    * Gets the height of the LevelElement.
+    * @return integer value representing height.
+    */
    public int getHeight() {
       return y2 - y1;
    }
 
+   /**
+    * Gets the width of the LevelElement.
+    * @return integer value representing width.
+    */
    public int getWidth() {
       return x2 - x1;
    }
-
-   // Main method for testing
-//    public static void main(String[] args) {
-//       LevelElement test = new LevelElement(0, 0, 60, 60);
-//       Collision c = test.checkCollisions(53, 10);
-//       System.out.println(c);
-//       System.out.println(c.getNewX(53));
-//       System.out.println(c.getNewY(10));  
-//    }
 }

@@ -84,7 +84,7 @@ public class Collision {
    /**
     * Gets the new correct X position for the player
     * @param oldX The current X position of the player
-    * @return int X coordinate
+    * @return integer X coordinate
     */
    public int getNewX(int oldX) {
       if (collisionSide == Side.TOP || collisionSide == Side.BOTTOM) return oldX;
@@ -94,7 +94,7 @@ public class Collision {
    /**
     * Gets the new correct Y position for the player
     * @param oldY The current Y position of the player
-    * @return int Y coordinate
+    * @return integer Y coordinate
     */
    public int getNewY(int oldY) {
       if (collisionSide == Side.LEFT || collisionSide == Side.RIGHT) return oldY;
