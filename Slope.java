@@ -16,53 +16,70 @@ public class Slope extends LevelElement {
       direction = d;
    }
    
-   // Returns downward angle of top face in degrees
+   // Returns downward slope of the slant of the triangle
    public double getSlope() {
       int a = super.getY2() - super.getY1();
       int b = super.getX2() - super.getX1();
-      return Math.atan((double) a / (double) b) * (180 / Math.PI);
+      if (direction == Direction.LEFT) a = -a; // Invert slope for left slopes
+      return (double)a / (double)b;
    }
    
    // Checks collisions with player
    public Collision checkCollisions(int x, int y) {
-      Collision box = super.checkCollisions(x, y);
+      Collision boxCollision = super.checkCollisions(x, y);
       // Checks if the player collides with the sides or top of the slope
-      if (box == null) return null;
-   
-      //System.out.println("x: " + x + " y: " + y + " d: " + d + " refx: " + refx + " refy: " + refy);
-      if ((box.getSide() == Collision.Side.LEFT || box.getSide() == Collision.Side.BOTTOM) && direction == Direction.RIGHT) {
-         y += Player.SIZE;
-         double xa = super.getX1();
-         double xb = super.getX2();
-         double ya = super.getY1();
-         double yb = super.getY2();
-         double c = (yb - ya) / (xb - xa);
-         double refx = -((c * xa) + ya + (x/c) - y) / (-(1 / c) - c);
-         double refy = c * (refx - xa) + y;
-         double d = Math.sqrt(Math.pow((refx - x), 2) + Math.pow((refy - y), 2));
-         if (y > refy) {
-            return new SlopeCollision(Collision.Side.BOTTOM, Collision.Type.NORMAL, (int) refx, (int) refy - Player.SIZE, 0);         
+      if (boxCollision == null) 
+         return null;
+         
+      y += Player.SIZE;
+      if (direction == Direction.LEFT) x += Player.SIZE;
+      
+      // Slope of the line of the box
+      double slope = getSlope();
+      // Slope of the line extending from the point on the player to the collision point on the slope
+      // This is defined to be perpendicular to the slope line, so we work backwards from it
+      double invSlope = -1 / slope;
+            
+      // These are just the coordinates of a point on the end of the triangle. It doesn't matter which one
+      double xa = super.getX1();
+      double ya = super.getY1();
+      if (direction == Direction.LEFT) xa = super.getX2();
+      
+      // This is the point on the slope that the player should be snapped to
+      // I did some algebra to figure out this formula
+      double xr = (slope * xa - invSlope * x + y - ya) / (slope - invSlope);
+      double yr = slope * (xr - xa) + ya;
+      
+      // Debug
+      // if (GamePanel.globalGraphics != null) GamePanel.globalGraphics.drawLine(x, y, (int)xr, (int)yr);
+      
+      Collision slopeCollision = null;
+      // If we are colliding, then yr will be less than y
+      if (yr < (double)y) {
+         if (direction == Direction.RIGHT) {
+            slopeCollision = new SlopeCollision(Collision.Side.CORNER_RIGHT, Collision.Type.SLIPPERY_RIGHT,
+               (int)xr, (int)yr - Player.SIZE, (int)Math.sqrt(Math.pow(xr - x, 2) + Math.pow(yr - y, 2)));
          } else {
-            return null;
+            slopeCollision = new SlopeCollision(Collision.Side.CORNER_LEFT, Collision.Type.SLIPPERY_LEFT,
+               (int)xr - Player.SIZE, (int)yr - Player.SIZE, (int)Math.sqrt(Math.pow(xr - x, 2) + Math.pow(yr - y, 2)));         
          }
-      } else if ((box.getSide() == Collision.Side.RIGHT || box.getSide() == Collision.Side.BOTTOM) && direction == Direction.LEFT) {
-         x += Player.SIZE;
-         y += Player.SIZE;
-         double xa = super.getX1();
-         double xb = super.getX2();
-         double ya = super.getY2();
-         double yb = super.getY1();
-         double c = (yb - ya) / (xb - xa);
-         double refx = -((c * xa) + ya + (x/c) - y) / (-(1 / c) - c);
-         double refy = c * (refx - xa) + y;
-         double d = Math.sqrt(Math.pow(refx - x, 2) + Math.pow(refy - y, 2));
-         if (y > refy) {
-            return new SlopeCollision(Collision.Side.BOTTOM, Collision.Type.NORMAL, (int) refx - Player.SIZE, (int) refy - Player.SIZE, 0);
-         } else {
-            return null;
-         }
+      }
+      
+      // Make collisions with edges of slopes less janky
+      if (super.getX1() > x || super.getX2() < x) {
+         return boxCollision;
+      }
+      
+      if ((boxCollision.getSide() == Collision.Side.BOTTOM) ||
+          (boxCollision.getSide() == Collision.Side.LEFT && direction == Direction.RIGHT) ||
+          (boxCollision.getSide() == Collision.Side.RIGHT && direction == Direction.LEFT)) {
+         return slopeCollision;
+      } else if (slopeCollision == null) {
+         return boxCollision;
+      } else if (slopeCollision.getDegree() < boxCollision.getDegree()) {
+         return slopeCollision;
       } else {
-         return box;
+         return boxCollision;
       }
    }
    

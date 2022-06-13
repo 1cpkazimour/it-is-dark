@@ -6,6 +6,9 @@ import javax.swing.*;
 // Game logic here
 
 public class GamePanel extends JPanel {
+      // For debugging ONLY!
+      public static Graphics globalGraphics = null;
+
       private Player player = null;
       private LevelData levels = new LevelData("levels.ser");
       private Level level = null;
@@ -32,20 +35,24 @@ public class GamePanel extends JPanel {
       }
       
       private void newLevel() {
-         System.out.println("Got here");
-         level = new Level(0,0,3000,1,new LevelElement[]{new LevelElement(0, 300, 100, 900), new LevelElement(200, 400, 500, 1000), new Slope(200, 100, 500, 300, Slope.Direction.RIGHT)});
+         level = new Level(0,0,3000,1,new LevelElement[]{new LevelElement(0, 300, 100, 900), new LevelElement(200, 400, 500, 1000), new Slope(200, 100, 500, 300, Slope.Direction.LEFT)});
          level.clearPaint();
          player = new Player(level.getStartX(), level.getStartY());
       }
       
       private void update() {
-         boolean win = player.move(key_up || key_space || key_w, key_right || key_d, key_left || key_a, level);
-         if (win) newLevel();
+         repaint();
       }
    
       // Repaint the canvas
       public void paintComponent(Graphics g) {
          super.paintComponent(g); // Calls the parent class' method to repaint
+         globalGraphics = g;
+         
+         if (isGaming) {
+            boolean win = player.move(key_up || key_space || key_w, key_right || key_d, key_left || key_a, level);
+            //if (win) newLevel();
+         }
          
          if (isGaming) {
             setBackground(Color.black); // Set the background to black
@@ -67,8 +74,8 @@ public class GamePanel extends JPanel {
             }
          }
          
-         
-         repaint();
+         globalGraphics = null;
+         if (!isGaming) repaint();
       }
       
       // Private class to intantiate a KeyListener object

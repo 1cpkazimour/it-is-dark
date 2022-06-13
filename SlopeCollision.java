@@ -4,8 +4,7 @@ public class SlopeCollision extends Collision {
    private int newY;
    
    public SlopeCollision(Collision.Side side, Collision.Type type, int newX, int newY, int deg) {
-      super(side, type, 400, deg);
-      System.out.println(newX + ", " + newY);
+      super(side, type, 0, deg);
       this.newX = newX;
       this.newY = newY;
    }
