@@ -1,12 +1,21 @@
 import java.io.*;
 import java.util.*;
 
-// This class represents an object containg level data for the game
+/**
+ * Represents the full set of Levels in the game.
+ */
 public class LevelData {
-   // Array of all level data
+   
+   /**
+    * Array containing all Levels in the game.
+    */
    private Level[] levels;
    
-   // Creates a new LevelData object by loading levels from file at specified path
+   /**
+    * Creates a new LevelData object and fills it with Levels from
+    * a serialized array of Levels at a given path.
+    * @param path Path of .ser file on computer.
+    */
    public LevelData(String path) {
       try {
          // attempt to load levels from file
@@ -22,32 +31,53 @@ public class LevelData {
       }
    }
    
-   // Creates a new empty leveldata with the specified levels
-   public LevelData(Level[] l) {
-      levels = l;
+   /**
+    * Creates a new LevelData object and fills it with Levels from
+    * a specified array of Levels.
+    * @param levels Array of Levels to load into LevelData.
+    */
+   public LevelData(Level[] levels) {
+      this.levels = levels;
    }
    
-   // Gets the entire level array
+   /**
+    * Gets all of the levels in this LevelData.
+    * @return Array of Levels.
+    */
    public Level[] getLevels() {
       return levels;
    }
    
-   // Returns random Level from array
+   /**
+    * Gets a random Level.
+    * @return Random Level.
+    */
    public Level get() {
       return levels[(int) (levels.length * Math.random())];
    }
    
-   // Returns level of specified number. First level is 1.
+   /**
+    * Gets a specific Level in the internal Array based upon a given id.
+    * @param id Position in the internal Array, starting at 1 (index + 1).\
+    * @return Level at the given id.
+    */
    public Level get(int id) {
       return levels[id - 1];
    }
    
-   // Returns the number of levels
+   /**
+    * Gets the number of Levels.
+    * @return The number of levels.
+    */
    public int length(){
       return levels.length;
    }
    
-   // Serializes levels and writes them to a file at the specified path
+   /**
+    * Serializes Levels and saves them in a file at a given path.
+    * @param levels Array of Levels to export.
+    * @param path Path to save file on computer.
+    */
    public static void export(Level[] levels, String path) {
       try {
          FileOutputStream file = new FileOutputStream(path);
@@ -59,10 +89,4 @@ public class LevelData {
             System.out.println(e);
          }
    }
-   
-//    public static void main(String[] args) {
-//       LevelData test = new LevelData("levels.ser");
-//       System.out.println(test.get(1));
-//       
-//    }
 }
