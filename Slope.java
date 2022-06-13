@@ -5,6 +5,8 @@ public class Slope extends LevelElement {
 
    // Direction of slope
    private Direction direction;
+   
+   private Color color = new Color(255, 255, 255);
 
    enum Direction {
       LEFT,
@@ -84,11 +86,23 @@ public class Slope extends LevelElement {
    }
    
    public void drawFaces(Graphics g) {
-      super.drawFaces(g);
+      g.setColor(color);
+      if (super.lit_bottom) {
+         g.fillRect(super.getX1(), super.getY2() - 2, super.getX2() - super.getX1(), 2);
+      }
+      if (super.lit_left && direction == Direction.RIGHT) {
+         g.fillRect(super.getX1(), super.getY1(), 2, super.getY2() - super.getY1());
+      }
+      if (super.lit_right && direction == Direction.LEFT) {
+         g.fillRect(super.getX2(), super.getY1(), 2, super.getY2() - super.getY1());
+      }
+      
       if (direction == Direction.LEFT) {
-         g.drawLine(super.getX1(), super.getY2(), super.getX2(), super.getY1());
+         g.drawLine(super.getX1(), super.getY2() - 2, super.getX2(), super.getY1());
+         g.drawLine(super.getX1(), super.getY2() - 1, super.getX2(), super.getY1() + 1);
       } else {
-         g.drawLine(super.getX1(), super.getY1(), super.getX2(), super.getY2());
+         g.drawLine(super.getX1(), super.getY1() - 2, super.getX2(), super.getY2());
+         g.drawLine(super.getX1(), super.getY1() - 1, super.getX2(), super.getY2() + 1);
       }
    }
    

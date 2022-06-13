@@ -14,10 +14,10 @@ public class LevelElement implements Serializable {
    private int y2;
 
    // Whether each face has been collided with or not
-   private boolean lit_top;
-   private boolean lit_bottom;
-   private boolean lit_left;
-   private boolean lit_right;
+   protected boolean lit_top;
+   protected boolean lit_bottom;
+   protected boolean lit_left;
+   protected boolean lit_right;
 
    private Color color = new Color(255, 255, 255);
    
