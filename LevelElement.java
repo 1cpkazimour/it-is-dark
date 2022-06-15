@@ -33,22 +33,22 @@ public class LevelElement implements Serializable {
    /**
     * Whether or not the top face has been illumnated (collided with)
     */
-   private boolean lit_top;
+   protected boolean lit_top;
    
    /**
     * Whether or not the bottom face has been illumnated (collided with)
     */
-   private boolean lit_bottom;
+   protected boolean lit_bottom;
    
    /**
     * Whether or not the left face has been illumnated (collided with)
     */
-   private boolean lit_left;
+   protected boolean lit_left;
    
    /**
     * Whether or not the right face has been illumnated (collided with)
     */
-   private boolean lit_right;
+   protected boolean lit_right;
    
    /**
     * The color of the faces when illumniated

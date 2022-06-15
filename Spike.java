@@ -4,7 +4,6 @@ import java.awt.*;
  * Represents a type of LevelElement called a spike that kills the player upon a collision.
  */
 public class Spike extends LevelElement {
-   
    /**
     * Creates a new Spike with given coordinates.
     * @param xa The first x coordinate
