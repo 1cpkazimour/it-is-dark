@@ -17,6 +17,10 @@ public class Slope extends LevelElement {
       super(xone, yone, xtwo, ytwo);
       direction = d;
    }
+
+   public Direction getDirection() {
+      return direction;
+   }
    
    // Returns downward slope of the slant of the triangle
    public double getSlope() {

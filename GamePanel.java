@@ -41,6 +41,8 @@ public class GamePanel extends JPanel {
       }
       
       private void update() {
+         boolean win = player.move(key_up || key_space || key_w, key_right || key_d, key_left || key_a, level);
+         //if (win) newLevel();
          repaint();
       }
    
@@ -48,11 +50,6 @@ public class GamePanel extends JPanel {
       public void paintComponent(Graphics g) {
          super.paintComponent(g); // Calls the parent class' method to repaint
          globalGraphics = g;
-         
-         if (isGaming) {
-            boolean win = player.move(key_up || key_space || key_w, key_right || key_d, key_left || key_a, level);
-            //if (win) newLevel();
-         }
          
          if (isGaming) {
             setBackground(Color.black); // Set the background to black
