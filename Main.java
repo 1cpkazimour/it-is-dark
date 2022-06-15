@@ -13,7 +13,7 @@ public class Main extends JFrame {
    // Go into edit mode?
    public static final boolean editMode = false;
 
-   public Main(ScreenSize s) {
+   public Main() {
       // Setup self as window
       this.setTitle("it is dark.");
       this.setDefaultCloseOperation(EXIT_ON_CLOSE); // Good window hygene
@@ -31,8 +31,7 @@ public class Main extends JFrame {
    }
 
    public static void main(String[] args) {
-      ScreenSize s = new ScreenSize();
-      new Main(s);
+      new Main();
    }
 
 }
