@@ -1,28 +1,57 @@
 import java.lang.Math;
 import java.awt.*;
 
+/**
+ * A type of LevelElement that implements a sloped surface
+ */
 public class Slope extends LevelElement {
 
-   // Direction of slope
+   /**
+    * Direction of the slope
+    */
    private Direction direction;
    
+   /**
+    * Color of the slope (white)
+    */
    private Color color = new Color(255, 255, 255);
 
+   /**
+    * Represents the two possible directions of a slope
+    * LEFT (sloping down and to the left)
+    * RIGHT (sloping down and to the right_
+    */
    enum Direction {
       LEFT,
       RIGHT
    }
    
+   /**
+    * Creates a new LevelElement with given coordinates.
+    * @param xone The first x coordinate
+    * @param yone The first y coordinate
+    * @param xtwo The second x coordinate
+    * @param ytwo The second y coordinate
+    * @param d The direction the slope is facing
+    */
    public Slope(int xone, int yone, int xtwo, int ytwo, Direction d) {
       super(xone, yone, xtwo, ytwo);
       direction = d;
    }
 
+   /**
+    * Returns the direction of the slope
+    * @return the direction of the slope
+    */
    public Direction getDirection() {
       return direction;
    }
    
-   // Returns downward slope of the slant of the triangle
+   
+   /**
+    * Returns the slope of the slope (y=<b>m</b>x+b form)
+    * @return the slope of the slope
+    */
    public double getSlope() {
       int a = super.getY2() - super.getY1();
       int b = super.getX2() - super.getX1();
@@ -30,7 +59,12 @@ public class Slope extends LevelElement {
       return (double)a / (double)b;
    }
    
-   // Checks collisions with player
+   /**
+    * Checks whether a given set of coordinates collides with this LevelElement.
+    * @param x The X coordinate to check.
+    * @param y The Y coordinate to check.
+    * @return A Collision object containing collision data if applicable, otherwise null.
+    */
    public Collision checkCollisions(int x, int y) {
       Collision boxCollision = super.checkCollisions(x, y);
       // Checks if the player collides with the sides or top of the slope
@@ -89,6 +123,10 @@ public class Slope extends LevelElement {
       }
    }
    
+   /**
+    * Draws the faces of the Slope that are set as illuminated.
+    * @param g The graphics object used to draw on the screen.
+    */
    public void drawFaces(Graphics g) {
       g.setColor(color);
       if (super.lit_bottom) {
@@ -109,15 +147,4 @@ public class Slope extends LevelElement {
          g.drawLine(super.getX1(), super.getY1() - 1, super.getX2(), super.getY2() + 1);
       }
    }
-   
-//    public static void main(String[] args) {
-//       Slope test = new Slope(6, 6, 11, 11, Direction.LEFT);
-//       System.out.println(test.getSlope());
-//       for (int x = 0; x <= 11; x++) {
-//          for (int y = 0; y <= 11; y++) {
-//             test.checkCollisions(x, y);
-//             
-//          }
-//       }
-//    }
 }

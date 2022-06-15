@@ -28,7 +28,9 @@ public class GamePanel extends JPanel {
                if (isGaming) update();
             }
          };
-         new Timer(delay, update).start();
+         Timer updateTimer = new Timer(delay, update);
+         updateTimer.setCoalesce(false);
+         updateTimer.start();
       }
       
       private void newLevel() {
