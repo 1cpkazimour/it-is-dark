@@ -12,7 +12,7 @@ public class Level implements Serializable {
     */
    private static final long serialVersionUID = 6900062191966977137L;
 
-   // Staring X and Y coordinates for player
+   // Starting X and Y coordinates for player
    
    /**
     * The X coordinate that the player starts the level at.

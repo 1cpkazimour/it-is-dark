@@ -3,18 +3,40 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-// Game logic here
-
+/**
+ * Represents the screen area within the game window.
+ */
 public class GamePanel extends JPanel {
+      
+      /**
+       * The player object representing the current player.
+       */
       private Player player = null;
+      
+      /**
+       * The levels of this game (loaded from file levels.ser).
+       */
       private LevelData levels = new LevelData("levels.ser");
+      
+      /**
+       * The current level.
+       */
       private Level level = null;
       
-      // Represents whether the game is in the menus or not
+      /**
+       * Whether or not the game is on the menu screen.
+       */
       private boolean isGaming = false;
       
-      private boolean key_right, key_left, key_up, key_space, key_w, key_a, key_d; // Booleans to track current key press
+      /**
+       * Whether or not each movement key is pressed.
+       */
+      private boolean key_right, key_left, key_up, key_space, key_w, key_a, key_d;
       
+      
+      /**
+       * Makes a new GamePanel.
+       */
       public GamePanel() {
          this.setFocusable(true); // Events only fire for a component if it has focus, so this call is necessary
          
@@ -31,18 +53,27 @@ public class GamePanel extends JPanel {
          new Timer(delay, update).start();
       }
       
+      /**
+       * Loads a new random level.
+       */
       private void newLevel() {
          level = levels.get();
          level.clearPaint();
          player = new Player(level.getStartX(), level.getStartY());
       }
       
+      /**
+       * Loads a new level if the player beats the current one.
+       */
       private void update() {
          boolean win = player.move(key_up || key_space || key_w, key_right || key_d, key_left || key_a, level);
          if (win) newLevel();
       }
    
-      // Repaint the canvas
+      /**
+       * Draws all elements of the game onto the screen.
+       * @params g Graphics object used to draw game.
+       */
       public void paintComponent(Graphics g) {
          super.paintComponent(g); // Calls the parent class' method to repaint
          
