@@ -89,13 +89,19 @@ public class Player {
             die(level);
             break;
          }
+         
+         // Debugging test
+//          if (collision.getType() == Collision.Type.SLIPPERY_LEFT || collision.getType() == Collision.Type.SLIPPERY_RIGHT) {
+//             System.out.println("Just had a slippery collision!");
+//          }
+         
          x = collision.getNewX(x);
          y = collision.getNewY(y);
          vy = 0;
          didCollide = true;
          
          collision = level.checkCollisions(x, y);
-	 maxCollisions--;
+	      maxCollisions--;;
       }
       
       if (y > 720) die(level);

@@ -11,7 +11,9 @@ public class Collision {
       LEFT,
       RIGHT,
       TOP,
-      BOTTOM
+      BOTTOM,
+      CORNER_LEFT,
+      CORNER_RIGHT
    }
    
    /**
@@ -20,7 +22,8 @@ public class Collision {
    public enum Type {
       NORMAL,
       DEADLY,
-      SLIPPERY
+      SLIPPERY_LEFT,
+      SLIPPERY_RIGHT
    }
    
    /**
