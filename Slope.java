@@ -115,7 +115,7 @@ public class Slope extends LevelElement {
           (boxCollision.getSide() == Collision.Side.RIGHT && direction == Direction.LEFT)) {
          return slopeCollision;
       } else if (slopeCollision == null) {
-         return boxCollision;
+         return null;
       } else if (slopeCollision.getDegree() < boxCollision.getDegree()) {
          return slopeCollision;
       } else {
