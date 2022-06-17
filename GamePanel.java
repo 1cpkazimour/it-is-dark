@@ -33,12 +33,25 @@ public class GamePanel extends JPanel {
        */
       private boolean key_right, key_left, key_up, key_space, key_w, key_a, key_d;
       
-      
+      /**
+       * The font used to display the title screen
+       */
+      private Font font;
+            
       /**
        * Makes a new GamePanel.
        */
       public GamePanel() {
          this.setFocusable(true); // Events only fire for a component if it has focus, so this call is necessary
+         
+         // Load the font
+         try {
+            font = Font.createFont(Font.TRUETYPE_FONT, GamePanel.class.getResourceAsStream("iosevka-regular.ttf"));
+            font = font.deriveFont((float)40); // Point size (cast is required because of overloading)
+         } catch (Exception e) {
+            System.out.println("Error loading file " + e);
+            font = null;
+         }
          
          // Handle Inputs, see below
          addKeyListener(new GameInput());
@@ -87,11 +100,12 @@ public class GamePanel extends JPanel {
             player.draw(g);
             
          } else {
+            if (font != null) g.setFont(font);
             setBackground(Color.white);
             
             g.setColor(Color.black);
-            g.drawString("it is dark.", 100, 100);
-            g.drawString("press space.", 100, 200);
+            g.drawString("it is dark.", 500, 300);
+            g.drawString("press space.", 500, 400);
             
             if (key_space) {
                isGaming = true;
