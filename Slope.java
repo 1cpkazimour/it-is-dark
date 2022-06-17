@@ -105,9 +105,6 @@ public class Slope extends LevelElement {
       double xr = (slope * xa - invSlope * x + y - ya) / (slope - invSlope);
       double yr = slope * (xr - xa) + ya;
       
-      // Debug
-      // if (GamePanel.globalGraphics != null) GamePanel.globalGraphics.drawLine(x, y, (int)xr, (int)yr);
-      
       Collision slopeCollision = null;
       // If we are colliding, then yr will be less than y
       if (yr < (double)y) {

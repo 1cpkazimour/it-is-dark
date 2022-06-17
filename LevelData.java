@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 /**
  * Represents the full set of Levels in the game.

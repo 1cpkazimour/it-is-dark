@@ -90,11 +90,6 @@ public class Player {
             break;
          }
          
-         // Debugging test
-//          if (collision.getType() == Collision.Type.SLIPPERY_LEFT || collision.getType() == Collision.Type.SLIPPERY_RIGHT) {
-//             System.out.println("Just had a slippery collision!");
-//          }
-         
          x = collision.getNewX(x);
          y = collision.getNewY(y);
          vy = 0;

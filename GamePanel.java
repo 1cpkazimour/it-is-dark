@@ -102,8 +102,10 @@ public class GamePanel extends JPanel {
          repaint();
       }
       
-      // Private class to intantiate a KeyListener object
-      // Called from the GamePanel contructor
+      /**
+       * Private class to intantiate a KeyListener object
+       * Called from the GamePanel contructor
+       */
       private class GameInput implements KeyListener {
          
          public void keyTyped(KeyEvent e) {}
