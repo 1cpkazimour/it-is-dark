@@ -31,7 +31,13 @@ public class Slope extends LevelElement {
     * RIGHT (sloping down and to the right_
     */
    enum Direction {
+      /**
+       * Sloping down to left.
+       */
       LEFT,
+      /**
+       * Sloping down to right.
+       */
       RIGHT
    }
    

@@ -195,8 +195,12 @@ public class LevelDesignerPanel extends JPanel {
    }
    
    /**
-    * Returns the distance squared between the points
+    * Returns the distance squared between the points.
     * Used for mark calculations
+    * @param x1 X coordinate of first point
+    * @param y1 Y coordinate of first point
+    * @param x2 X coordinate of second point
+    * @param y2 Y coordinate of second point
     * @return the distance squared between the two points
     */
    private int distance(int x1, int y1, int x2, int y2) {

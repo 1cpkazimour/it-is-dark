@@ -103,13 +103,21 @@ public class GamePanel extends JPanel {
       }
       
       /**
-       * Private class to intantiate a KeyListener object
+       * Private class to instantiate a KeyListener object
        * Called from the GamePanel contructor
        */
       private class GameInput implements KeyListener {
          
+         /**
+          * Checks if a key is typed (unused)
+          * @param e KeyEvent to grab info from.
+          */
          public void keyTyped(KeyEvent e) {}
       
+         /**
+          * Checks if a movement key has been released.
+          * @param e KeyEvent to analzye.
+          */
          public void keyReleased(KeyEvent e) {
             if (e.getKeyCode() == e.VK_UP) key_up = false;
             if (e.getKeyCode() == e.VK_RIGHT) key_right = false;
@@ -121,6 +129,10 @@ public class GamePanel extends JPanel {
             
          }
       
+         /**
+          * Checks if a movement key has been pressed.
+          * @param e KeyEvent to analzye.
+          */
          public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == e.VK_UP) key_up = true;
             if (e.getKeyCode() == e.VK_RIGHT) key_right = true;
