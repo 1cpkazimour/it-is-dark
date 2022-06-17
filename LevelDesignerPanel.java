@@ -197,6 +197,7 @@ public class LevelDesignerPanel extends JPanel {
    /**
     * Returns the distance squared between the points
     * Used for mark calculations
+    * @return the distance squared between the two points
     */
    private int distance(int x1, int y1, int x2, int y2) {
       return (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
@@ -331,7 +332,7 @@ public class LevelDesignerPanel extends JPanel {
       public void mousePressed(MouseEvent e) {}
       public void mouseReleased(MouseEvent e) {}
    }
-   
+
    /**
     * Input handler for keyboard presses
     */

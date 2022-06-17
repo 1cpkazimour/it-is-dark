@@ -12,9 +12,14 @@ import javax.swing.*;
  */
 
 public class Main extends JFrame {
-   // Go into edit mode?
+   /** 
+    * Go into edit mode?
+    */
    public static final boolean editMode = false;
 
+   /**
+    * constructs a Main object.
+    */
    public Main() {
       // Setup self as window
       this.setTitle("it is dark.");

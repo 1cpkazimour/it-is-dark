@@ -74,7 +74,7 @@ public class GamePanel extends JPanel {
    
       /**
        * Draws all elements of the game onto the screen.
-       * @params g Graphics object used to draw game.
+       * @param g Graphics object used to draw game.
        */
       public void paintComponent(Graphics g) {
          super.paintComponent(g); // Calls the parent class' method to repaint
